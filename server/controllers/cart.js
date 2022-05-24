@@ -1,82 +1,60 @@
-const Cart = require("../model/cart")
+const Cart = require("../models/cart")
 
-// ------------- PRUEBAS ---------------
-// const tryCatch = async (promise) => {
-//     try {
-//         const data = await promise
-//         const error = null
-//         return [data, error]
-//     } catch (error) {
-//         const data = null
-//         const err = error
-//         console.error(error)
-//         return [data, err]
-//     }
-// }
-// const { body } = req
-// const [data, error] = await tryCatch(Cart.createCart(body))
-// data != null ? res.status(201).send(data) : res.status(500).send({ error })
-
-// const tryCatch = (promise) => {
-//     return promise.then(data => [null, data]).catch(err => [err])
-// }
-// const data = null
-// const err = null
-// const { body } = req
-// [data, err] = await tryCatch(Cart.createCart(body))
-// err ? res.status(500).send(err) : res.status(201).send(data)
 const createCart = async (req, res) => {
     try {
-        const { body } = req
-        res.status(201).send(await Cart.createCart(body))        
+        const cart = await Cart.createCart()
+        res.status(201).send(cart)        
     } catch (error) {
         console.error(error)
-        res.status(500).send(error)
+        res.status(500).send({ error: error.message })
     }
 }
 
 const addProduct = async (req, res) => {
+    const { id, prodId } = req.params
     try {
-        const { id } = req.params
-        const { body } = req
-        res.status(201).send(await Cart.addProduct(id, body))
+        const product = await Cart.addProduct(id, prodId)
+        const [data, status] = product
+        res.status(status).send(data)
     } catch(e) {
-        if (e.message === "Cart does not exist.") {
-            res.sendStatus(404)
-        } else {
-            console.log(e)
-            res.sendStatus(500)
-        }
+        console.log(e)
+        res.status(500).send({ error: error.message })
     }
 }
 
 const getCartProducts = async (req, res) => {
+    const { id } = req.params
     try {
-        const { id } = req.params
-        res.status(200).send(await Cart.getCartProducts(id))        
+        const products = await Cart.getCartProducts(id)
+        const [data, status] = products
+        res.status(status).send(data)        
     } catch (error) {
        console.error(error)
-       res.status(500).send(error) 
+       res.status(500).send({ error: error.message })
     }
 }
 
 const deleteProduct = async (req, res) => {
+    const { id, prod } = req.params    
     try {
-        const { id, prod } = req.params    
-        res.status(200).send(await Cart.deleteProduct(id, prod))        
+        const product = await Cart.deleteProduct(id, prod)
+        const [data, status] = product
+        res.status(status).send(data)        
     } catch (error) {
         console.error(error)
-        res.status(500).send(error)
+        res.status(500).send({ error: error.message })
     }
 }
 
 const deleteCart = async (req, res) => {
+    const { id } = req.params
     try {
-        const { id } = req.params
-        res.status(202).send(await Cart.deleteCart(id))
+        const cart = await Cart.deleteCart(id)
+        const [data, status] = cart
+        res.status(status).send(data)
     } catch (error) {
         console.error(error)
-        res.status(500).send(error)
+        res.status(500).send({ error: error.message })
     }
 }
 
