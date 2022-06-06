@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from "./components/Login"
-import SignUp from "./components/SignUp"
+import Register from "./components/Register"
 import './App.css'
 import Home from './components/Home';
 
@@ -21,9 +21,9 @@ function App() {
           element={ <Login /> }
         />
         <Route
-          path='/signup'
+          path='/Register'
           exact
-          element={ <SignUp /> }
+          element={ <Register /> }
         />
       </Routes>
     </BrowserRouter>

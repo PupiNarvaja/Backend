@@ -53,7 +53,7 @@ const Login = () => {
 
             <p className="text-sm text-center text-gray-500">
                 No account?
-                <Link to="/signup" className="underline ml-2">Sign up</Link>
+                <Link to="/register" className="underline ml-2">Sign up</Link>
             </p>
             </form>
         </div>

@@ -1,8 +1,8 @@
-const mongoose = require("mongoose")
+const { Schema, model } = require("mongoose")
 
 class Products {
     constructor() {
-        const schema = new mongoose.Schema({
+        const schema = new Schema({
             title: String,
             description: String,
             code: String,
@@ -12,7 +12,7 @@ class Products {
             timestamp: { type: Number, default: Date.now(), format: '%Y-%m-%d' }
         })
         
-        this.model = mongoose.model("products", schema)
+        this.model = model("products", schema)
     }
 
     async getAllProducts(orderBy = "", order = -1, search = "") {

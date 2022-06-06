@@ -1,9 +1,9 @@
-const mongoose = require("mongoose")
+const { Schema, model } = require("mongoose")
 const ProductsModel = require("../models/products");
 
 class Cart {
     constructor() {
-        const schema = new mongoose.Schema({
+        const schema = new Schema({
             products: { type: Array, default: [] },
             timestamp: {
                 type: Date,
@@ -12,7 +12,7 @@ class Cart {
             },
         })
         
-        this.model = mongoose.model("carts", schema)
+        this.model = model("carts", schema)
     }
 
     async createCart() {

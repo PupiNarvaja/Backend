@@ -1,15 +1,21 @@
 // En orden alfabetico y primero librerias externas...
+const cookieParser = require("cookie-parser")
 const express = require("express")
 const session = require("express-session")
+const passport = require("passport")
 
 const mongoose = require("mongoose")
 const mongoStore = require("connect-mongo")
 
 // ...luego nuestros propios documentos.
 const app = express()
-const routerCart = require("./routers/cart")
+const initializePassport = require("./passport/local")
+
 const routerProducts = require("./routers/products")
-const isAdmin = require("./middlewares/admin")
+const routerRegister = require("./routers/register")
+const routerLogout = require("./routers/logout")
+const routerLogin = require("./routers/login")
+const routerCart = require("./routers/cart")
 const isLogged = require("./middlewares/isLogged")
 
 const { URI_CLOUD_CONNECTION, PORT } = require("./config")
@@ -17,9 +23,10 @@ const { URI_CLOUD_CONNECTION, PORT } = require("./config")
 
 mongoose.connect(URI_CLOUD_CONNECTION).then(() => {
 
+    initializePassport(passport)
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
-
+    app.use(cookieParser("secret"))
     app.use(session({
         secret: "secret",
         resave: true,
@@ -27,16 +34,30 @@ mongoose.connect(URI_CLOUD_CONNECTION).then(() => {
 
         store: new mongoStore({
             mongoUrl:  URI_CLOUD_CONNECTION,
-            ttl: 10 * 10 * 60,
+            ttl: 60 * 3,
             expires:  1000 * 10 * 60,
             autoRemove: "native"
         })
     }))
+    app.use(passport.initialize())
+    app.use(passport.session())
 
 
-    app.use("/api/cart", isLogged, routerCart)
+    app.get("/", isLogged, (req, res) => {
+        const { firstname, lastname } = req.user
+        
+        res.send(`Welcome ${firstname} ${lastname} <br> <form action="/logout" method="POST"><button type="submit">Logout</button></form>`)
+    })
 
-    app.use("/api/products", isLogged, isAdmin, routerProducts)
+    app.use("/logout", routerLogout)
+
+    app.use("/login", routerLogin)
+
+    app.use("/register", routerRegister)
+
+    app.use("/api/cart", routerCart)
+
+    app.use("/api/products", routerProducts)
 
     app.use("*", (req, res) => res.status(404).send({ error: "Page not found." }))
 
