@@ -11,6 +11,8 @@ router.post("/", isLogged, (req, res, next) => {
 
     const greeting = `Goodbye ${firstname} ${lastname}! <br><a href="/">Login</a>`
 
+    res.clearCookie("token")
+    
     req.logOut((err) => {
         if (err) {
             console.log(err)

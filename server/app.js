@@ -16,7 +16,11 @@ const routerRegister = require("./routers/register")
 const routerLogout = require("./routers/logout")
 const routerLogin = require("./routers/login")
 const routerCart = require("./routers/cart")
+const routerJwt = require("./routers/jwt")
 const isLogged = require("./middlewares/isLogged")
+const isAuthenticated = require("./middlewares/jwt")
+
+const path = require("path")
 
 const { URI_CLOUD_CONNECTION, PORT } = require("./config")
 
@@ -35,19 +39,22 @@ mongoose.connect(URI_CLOUD_CONNECTION).then(() => {
         store: new mongoStore({
             mongoUrl:  URI_CLOUD_CONNECTION,
             ttl: 60 * 3,
-            expires:  1000 * 10 * 60,
+            expires:  60 * 3,
             autoRemove: "native"
         })
     }))
     app.use(passport.initialize())
     app.use(passport.session())
 
+    app.use("/static/", express.static(path.join(__dirname, "../public")))
 
-    app.get("/", isLogged, (req, res) => {
+    app.get("/", isAuthenticated, (req, res) => {
         const { firstname, lastname } = req.user
         
         res.send(`Welcome ${firstname} ${lastname} <br> <form action="/logout" method="POST"><button type="submit">Logout</button></form>`)
     })
+
+    app.use("/auth/jwt", routerJwt)
 
     app.use("/logout", routerLogout)
 
@@ -61,7 +68,6 @@ mongoose.connect(URI_CLOUD_CONNECTION).then(() => {
 
     app.use("*", (req, res) => res.status(404).send({ error: "Page not found." }))
 
-    
     app.listen(PORT, () => console.log("🚀 Server online."))
 
 }).catch((err) => console.log("Error on mongo.", err))
