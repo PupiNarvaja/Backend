@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon --ignore './public/*' -r dotenv/config .",
-    "pm2-fork": "pm2 start ./startmode/worker.config.js",
-    "pm2-cluster": "pm2 start ./startmode/cluster.config.js"
+    "pm2-fork": "pm2 start --no-daemon ./startmode/worker.config.js",
+    "pm2-cluster": "pm2 start --no-daemon ./startmode/cluster.config.js"
   },
   "author": "Narvaja, Juan Manuel",
   "license": "ISC",
@@ -21,7 +21,8 @@
     "mongoose": "^6.3.4",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "pm2": "^5.2.0"
+    "pm2": "^5.2.0",
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "dotenv": "^16.0.1",

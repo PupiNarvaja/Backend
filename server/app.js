@@ -19,9 +19,11 @@
     const routerLogin = require("./routers/login")
     const routerCart = require("./routers/cart")
     const routerJwt = require("./routers/jwt")
+
     const isLogged = require("./middlewares/isLogged")
     const isAuthenticated = require("./middlewares/jwt")
 
+    const logger = require('./log')
     const path = require("path")
 
     const { URI_CLOUD_CONNECTION, PORT } = require("./config")
@@ -70,9 +72,9 @@
 
         app.use("*", (req, res) => res.status(404).send({ error: "Page not found." }))
 
-        app.listen(PORT, () => console.log("🚀 Server online."))
-        
+        app.listen(PORT, () => logger.info("🚀 Server online."))
+
     } catch (error) {
-        console.log("Error on mongo.", error)
+        logger.error("Error on mongo.", error)
     }
 })()

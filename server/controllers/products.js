@@ -1,4 +1,5 @@
 const Product = require("../models/products")
+const logger = require('../log')
 
 const getAllProducts = async (req, res) => {
     const { orderBy, order, search } = req.query
@@ -6,7 +7,7 @@ const getAllProducts = async (req, res) => {
       const products = await Product.getAllProducts(orderBy, order, search)
       res.status(200).send(products)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
       res.status(500).send({ error: error.message })
     }
 }
@@ -18,7 +19,7 @@ const getProduct = async (req, res) => {
         const [data, status] = product
         res.status(status).send(data)        
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -30,7 +31,7 @@ const createProduct = async (req, res) => {
         const [data, status] = newProd
         res.status(status).send(data)
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -43,7 +44,7 @@ const updateProduct = async (req, res) => {
         const [data, status] = updated
         res.status(status).send(data)       
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -55,7 +56,7 @@ const deleteProduct = async (req, res) => {
         const [data, status] = deleted
         res.status(status).send(data)  
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }

@@ -1,9 +1,10 @@
 const { verifyToken } = require("../auth/jwt")
+const logger = require('../log')
 
 module.exports = (req, res, next) => {
     const cookies = req.cookies
     if (!cookies.token) {
-        console.log("There are no cookies!")
+        logger.error("There is no token!")
         return res.status(401).send({
             error: "Unauthorized. Not logged."
         })
@@ -17,7 +18,7 @@ module.exports = (req, res, next) => {
             <a href="/login">Login</a>
         `)
     }
-    console.log("Valid token!")
+    logger.info("Valid token!")
 
     next()
 }
@@ -28,17 +29,17 @@ module.exports = (req, res, next) => {
 //     const header = req.headers.cookie
     
 //     // if (!header) {
-//     //     console.log("Header: " + header)
+//     //     logger.error("Header: " + header)
 //     //     return res.status(401).send({
 //     //         error: "Unauthorized. Not logged."
 //     //     })
 //     // }
-//     // console.log(header)
+//     // logger.info(header)
 //     const token = header.replace("token=", "")
 //     .replace(";", "")
 //     .split(" ")[1]
 
-//     console.log("Token: " + token)
+//     logger.info("Token: " + token)
 
 //     if (!verifyToken(token)) {
 //         return res.status(401).send({
@@ -57,7 +58,7 @@ module.exports = (req, res, next) => {
 //     const header = req.headers.authorization
     
 //     if (!header) {
-//         console.log("Header: " + header)
+//         logger.info("Header: " + header)
 //         return res.status(401).send({
 //             error: "Unauthorized. Not logged."
 //         })
@@ -65,7 +66,7 @@ module.exports = (req, res, next) => {
 
 //     const token = header.split(" ")[1]
 
-//     console.log("Token: " + token)
+//     logger.info("Token: " + token)
 
 //     if (!verifyToken(token)) {
 //         return res.status(401).send({

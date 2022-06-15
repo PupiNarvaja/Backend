@@ -1,22 +1,23 @@
 const LocalStrategy = require("passport-local").Strategy
 const UserModel = require("../models/user")
+const logger = require('../log')
 
 module.exports = (passport) => {
     const authenticateUser = async (email, password, done) => {
         
         try {
             if (!await UserModel.existsByEmail(email)) {
-                console.log("No existe el user.")
+                logger.error("No existe el user.")
                 return done(null, false)
             }
 
             if (!await UserModel.isPasswordValid(email, password)) {
-                console.log("Contraseña incorrecta!")
+                logger.error("Contraseña incorrecta!")
                 return done(null, false)
             }
 
             const user = await UserModel.getUserByEmail(email)
-            console.log(user)
+            logger.info(user)
 
             done(null, user)
 
@@ -30,7 +31,7 @@ module.exports = (passport) => {
 
         try {
             if (await UserModel.existsByEmail(email)) {
-                console.log("user already exists!")
+                logger.error("user already exists!")
                 return done(null, false)
             }
     

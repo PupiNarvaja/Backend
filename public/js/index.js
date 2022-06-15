@@ -12,7 +12,7 @@ const root = document.getElementById("root")
 
 const objCookies = cookieParser()
 
-console.log(objCookies)
+// console.log(objCookies)
 
 fetch("/api/products", {
     headers: { authorization: `Bearer ${objCookies.token}` }

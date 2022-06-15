@@ -1,11 +1,12 @@
 const Cart = require("../models/cart")
+const logger = require('../log')
 
 const createCart = async (req, res) => {
     try {
         const cart = await Cart.createCart()
         res.status(201).send(cart)        
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -16,8 +17,8 @@ const addProduct = async (req, res) => {
         const product = await Cart.addProduct(id, prodId)
         const [data, status] = product
         res.status(status).send(data)
-    } catch(e) {
-        console.log(e)
+    } catch (error) {
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -29,7 +30,7 @@ const getCartProducts = async (req, res) => {
         const [data, status] = products
         res.status(status).send(data)        
     } catch (error) {
-       console.error(error)
+       logger.error(error)
        res.status(500).send({ error: error.message })
     }
 }
@@ -41,7 +42,7 @@ const deleteProduct = async (req, res) => {
         const [data, status] = product
         res.status(status).send(data)        
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }
@@ -53,7 +54,7 @@ const deleteCart = async (req, res) => {
         const [data, status] = cart
         res.status(status).send(data)
     } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).send({ error: error.message })
     }
 }

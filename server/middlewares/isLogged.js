@@ -1,6 +1,8 @@
+const logger = require('../log')
+
 module.exports = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        console.log("PASSPORT DENIED")
+        logger.error("PASSPORT DENIED")
         return res.redirect("/login")
     }
 
