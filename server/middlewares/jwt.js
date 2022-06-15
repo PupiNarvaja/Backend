@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
 
     if (!verifyToken(token)) {
         return res.status(401).send(`
-            error: Unauthorized. Invalid token. <br>
+            error: Unauthorized. Please, login. <br>
             <a href="/login">Login</a>
         `)
     }
