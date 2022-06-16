@@ -6,7 +6,7 @@ class Products {
             title: String,
             description: String,
             code: String,
-            url: String,
+            img: String,
             price: Number,
             stock: { type: Number, default: 0 },
             timestamp: { type: Number, default: Date.now(), format: '%Y-%m-%d' }
@@ -24,7 +24,7 @@ class Products {
             title: 1,
             description: 1,
             code: 1,
-            url: 1,
+            img: 1,
             price: 1,
             stock: 1,
             id: 1,
