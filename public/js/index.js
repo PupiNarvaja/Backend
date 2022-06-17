@@ -21,10 +21,12 @@ fetch("/api/products", {
 .then(data => {
     data.forEach(prod => {
         root.innerHTML += `
-        <div>
-            <div>${prod.title}</div>
-            <div>${prod.price}</div>
-            <div>${prod.description}</div>
+        <div class="m-10">
+            <div class="w-64 h-80 mb-4 flex items-center overflow-hidden">
+                <img src=${prod.img}>
+            </div>
+            <p class="text-center archivo">${prod.title}</p>
+            <p class="text-center archivo">$${prod.price}</p>
         </div>`
     })
 })

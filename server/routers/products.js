@@ -10,7 +10,7 @@ const path = require("path")
 router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.
 
 router.get("/show", isAuthenticated, (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/apiProducts.html"))
+    res.status(200).sendFile(path.join(__dirname, "../views/home.html"))
 })
 
 router.get("/:id", isAuthenticated, isAdmin, productController.getProduct) // Obtiene un producto determinado.

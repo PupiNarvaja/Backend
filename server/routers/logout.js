@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const isAuthenticated = require("../middlewares/isAuthenticated")
 const logger = require('../log')
+const path = require("path")
 
 // /logout
 router.get("/", (req, res) => { // TEMPORAL.
@@ -19,7 +20,7 @@ router.post("/", isAuthenticated, (req, res, next) => {
             logger.error(err)
             return next(err)
         }
-        res.status(200).send(greeting)
+        res.status(200).sendFile(path.join(__dirname, "../views/logout.html"))
     })
 })
 

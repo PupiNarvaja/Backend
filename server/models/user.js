@@ -8,7 +8,9 @@ class UserModel {
             firstname: String,
             lastname: String,
             password: String,
-            admin: Boolean
+            age: String,
+            address: String,
+            phone: String
         })
 
         this.model = model("users", schema)
@@ -16,7 +18,6 @@ class UserModel {
 
     async saveUser(obj) {
         obj.password = await bcrypt.hash(obj.password, 10)
-        obj.admin = false
         return await this.model.create(obj)
     }
 
