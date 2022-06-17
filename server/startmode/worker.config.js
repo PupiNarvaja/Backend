@@ -1,6 +1,6 @@
 // Modo fork.
 module.exports = { 
-    apps: [//Array de nuestrsa aplicaciones. Cada obj es una app.
+    apps: [
         {  
             name: "Server 1",
             script: "app.js",
