@@ -20,8 +20,7 @@
     const routerCart = require("./routers/cart")
     const routerJwt = require("./routers/jwt")
 
-    const isLogged = require("./middlewares/isLogged")
-    const isAuthenticated = require("./middlewares/jwt")
+    const isAuthenticated = require("./middlewares/isAuthenticated")
 
     const logger = require('./log')
     const path = require("path")

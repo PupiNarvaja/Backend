@@ -1,26 +1,25 @@
 const router = require("express").Router()
 
 const isAdmin = require("../middlewares/isAdmin")
-const isLogged = require("../middlewares/isLogged")
-const isAuthorized = require("../middlewares/jwt")
+const isAuthenticated = require("../middlewares/isAuthenticated")
 const productController = require("../controllers/products")
 
 const path = require("path")
 
 // /api/products
-router.get("/", isAuthorized,  productController.getAllProducts) // Obtiene todos los productos existentes.
+router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.
 
-router.get("/show", isAuthorized,  (req, res) => {
+router.get("/show", isAuthenticated, (req, res) => {
     res.status(200).sendFile(path.join(__dirname, "../views/apiProducts.html"))
 })
 
-router.get("/:id", isAuthorized, isLogged, isAdmin, productController.getProduct) // Obtiene un producto determinado.
+router.get("/:id", isAuthenticated, isAdmin, productController.getProduct) // Obtiene un producto determinado.
 
-router.post("/", isAuthorized, isLogged, isAdmin, productController.createProduct) // Agrega un nuevo producto.
+router.post("/", isAuthenticated, isAdmin, productController.createProduct) // Agrega un nuevo producto.
 
-router.put("/:id", isAuthorized, isLogged, isAdmin, productController.updateProduct) // Modifica un producto existente.
+router.put("/:id", isAuthenticated, isAdmin, productController.updateProduct) // Modifica un producto existente.
 
-router.delete("/:id", isAuthorized, isLogged, isAdmin, productController.deleteProduct) // Elimina un producto.
+router.delete("/:id", isAuthenticated, isAdmin, productController.deleteProduct) // Elimina un producto.
 
 
 module.exports = router;

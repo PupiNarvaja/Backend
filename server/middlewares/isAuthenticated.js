@@ -23,33 +23,6 @@ module.exports = (req, res, next) => {
     next()
 }
 
-// const { verifyToken } = require("../auth/jwt")
-
-// module.exports = (req, res, next) => {
-//     const header = req.headers.cookie
-    
-//     // if (!header) {
-//     //     logger.error("Header: " + header)
-//     //     return res.status(401).send({
-//     //         error: "Unauthorized. Not logged."
-//     //     })
-//     // }
-//     // logger.info(header)
-//     const token = header.replace("token=", "")
-//     .replace(";", "")
-//     .split(" ")[1]
-
-//     logger.info("Token: " + token)
-
-//     if (!verifyToken(token)) {
-//         return res.status(401).send({
-//             error: "Unauthorized. Invalid token."
-//         })
-//     }
-
-//     next()
-// }
-
 // -------------------------------------------
 
 // const { verifyToken } = require("../auth/jwt")

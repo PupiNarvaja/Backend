@@ -1,9 +1,9 @@
 const router = require("express").Router()
-const isLogged = require("../middlewares/isLogged")
+const isAuthenticated = require("../middlewares/isAuthenticated")
 const { generateToken } = require("../auth/jwt")
 
 // /auth/jwt
-router.get("/", isLogged, (req, res) => {
+router.get("/", isAuthenticated, (req, res) => {
     const token = generateToken(req.user)
     res.clearCookie("token")
     res.cookie("token", token)// , { httpOnly: true }
