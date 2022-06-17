@@ -9,7 +9,7 @@ const Home = () => {
       fetch("http://localhost:8080/api/products")
         .then((res) => res.json())
         .then((res) => {
-            console.log(res); // POR QUE RENDERIZA 2 VECES?? CAMBIO DE ESTADO. PERO COMO EVITARLO?
+            console.log(res);
             setProducts(res.map(prod => <Product prod={prod} key={products.length += 1} />))
 
             setLoading(false)

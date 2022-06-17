@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Register = () => {
+const Signup = () => {
     return (
         <div className="max-w-screen-xl px-4 pt-36 mx-auto sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto">
@@ -105,4 +105,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Signup
