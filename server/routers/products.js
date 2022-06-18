@@ -9,10 +9,6 @@ const path = require("path")
 // /api/products
 router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.
 
-router.get("/show", isAuthenticated, (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/home.html"))
-})
-
 router.get("/:id", isAuthenticated, isAdmin, productController.getProduct) // Obtiene un producto determinado.
 
 router.post("/", isAuthenticated, isAdmin, productController.createProduct) // Agrega un nuevo producto.

@@ -1,5 +1,6 @@
 const LocalStrategy = require("passport-local").Strategy
 const UserModel = require("../models/user")
+const CartModel = require("../models/cart")
 const logger = require('../log')
 
 module.exports = (passport) => {
@@ -44,6 +45,8 @@ module.exports = (passport) => {
                 address,
                 phone
             })
+
+            await CartModel.createCart(user._id)
     
             done(null, {
                 ...user,

@@ -1,22 +1,23 @@
 const { Schema, model } = require("mongoose")
 const ProductsModel = require("../models/products");
 
-class Cart {
+class CartModel {
     constructor() {
         const schema = new Schema({
+            userId: String,
             products: { type: Array, default: [] },
             timestamp: {
                 type: Date,
                 default: Date.now(this.timestamp).toString(),
                 format: '%Y-%m-%d',
-            },
+            }
         })
         
         this.model = model("carts", schema)
     }
 
-    async createCart() {
-        const cart = await this.model.create({})
+    async createCart(userId) {
+        const cart = await this.model.create({ userId: userId })
         return cart
     }
 
@@ -60,10 +61,10 @@ class Cart {
         return [data, 201]
     }
 
-    async getCartProducts(id) {
+    async getCartProducts(userId) {
         let data, status;
 
-        const cart = await this.model.findById(id)
+        const cart = await this.model.findOne({ userId: userId }).lean()
         if (cart === null) {
             status = 404
             data = { error: "Requested cart does not exist." }
@@ -113,4 +114,4 @@ class Cart {
     }
 }
 
-module.exports = new Cart()
+module.exports = new CartModel()

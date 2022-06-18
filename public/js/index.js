@@ -19,6 +19,9 @@ fetch("/api/products", {
 })
 .then(res => res.json())
 .then(data => {
+    if (!root) {
+        return
+    }
     data.forEach(prod => {
         root.innerHTML += `
         <div class="m-10">

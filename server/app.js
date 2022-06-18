@@ -17,6 +17,7 @@
     const routerRegister = require("./routers/register")
     const routerLogout = require("./routers/logout")
     const routerLogin = require("./routers/login")
+    const routerHome = require("./routers/home")
     const routerCart = require("./routers/cart")
     const routerJwt = require("./routers/jwt")
 
@@ -51,20 +52,20 @@
 
         app.use("/static/", express.static(path.join(__dirname, "../public")))
 
-        app.get("/", isAuthenticated, (req, res) => {
-            const { firstname, lastname } = req.user
-            const user = `Welcome ${firstname} ${lastname} <br> <form action="/logout" method="POST"><button type="submit">Logout</button></form>`
-            
-            res.sendFile(path.join(__dirname, "./views/home.html"))
-        })
+        app.use("/", routerHome)
+
+        app.use("/register", routerRegister)
+
+        app.use("/login", routerLogin)
 
         app.use("/auth/jwt", routerJwt)
 
         app.use("/logout", routerLogout)
 
-        app.use("/login", routerLogin)
-
-        app.use("/register", routerRegister)
+        app.get("/cart", isAuthenticated, (req, res) => {
+            res.sendFile(path.join(__dirname, "./views/cart.html"))
+            // const total = cart.reduce((total, p) => total + p.price, 0)
+        })
 
         app.use("/api/cart", routerCart)
 

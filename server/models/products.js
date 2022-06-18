@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose")
 
-class Products {
+class ProductModel {
     constructor() {
         const schema = new Schema({
             title: String,
@@ -105,4 +105,4 @@ class Products {
     }
 }
 
-module.exports = new Products()
+module.exports = new ProductModel()

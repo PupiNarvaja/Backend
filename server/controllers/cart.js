@@ -1,20 +1,20 @@
-const Cart = require("../models/cart")
+const CartModel = require("../models/cart")
 const logger = require('../log')
 
-const createCart = async (req, res) => {
-    try {
-        const cart = await Cart.createCart()
-        res.status(201).send(cart)        
-    } catch (error) {
-        logger.error(error)
-        res.status(500).send({ error: error.message })
-    }
-}
+// const createCart = async (req, res) => {
+//     try {
+//         const cart = await CartModel.createCart()
+//         res.status(201).send(cart)        
+//     } catch (error) {
+//         logger.error(error)
+//         res.status(500).send({ error: error.message })
+//     }
+// }
 
 const addProduct = async (req, res) => {
     const { id, prodId } = req.params
     try {
-        const product = await Cart.addProduct(id, prodId)
+        const product = await CartModel.addProduct(id, prodId)
         const [data, status] = product
         res.status(status).send(data)
     } catch (error) {
@@ -24,11 +24,12 @@ const addProduct = async (req, res) => {
 }
 
 const getCartProducts = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.user
+
     try {
-        const products = await Cart.getCartProducts(id)
+        const products = await CartModel.getCartProducts(id)
         const [data, status] = products
-        res.status(status).send(data)        
+        res.status(status).send(data)
     } catch (error) {
        logger.error(error)
        res.status(500).send({ error: error.message })
@@ -38,7 +39,7 @@ const getCartProducts = async (req, res) => {
 const deleteProduct = async (req, res) => {
     const { id, prod } = req.params    
     try {
-        const product = await Cart.deleteProduct(id, prod)
+        const product = await CartModel.deleteProduct(id, prod)
         const [data, status] = product
         res.status(status).send(data)        
     } catch (error) {
@@ -50,7 +51,7 @@ const deleteProduct = async (req, res) => {
 const deleteCart = async (req, res) => {
     const { id } = req.params
     try {
-        const cart = await Cart.deleteCart(id)
+        const cart = await CartModel.deleteCart(id)
         const [data, status] = cart
         res.status(status).send(data)
     } catch (error) {
@@ -60,7 +61,7 @@ const deleteCart = async (req, res) => {
 }
 
 module.exports = {
-    createCart,
+    // createCart,
     addProduct,
     getCartProducts,
     deleteProduct,

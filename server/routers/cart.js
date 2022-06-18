@@ -3,11 +3,9 @@ const cartController = require("../controllers/cart");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
 //  /api/cart
-router.post("/", isAuthenticated, cartController.createCart); // Crea un nuevo cart con id propio.
+router.get("/", isAuthenticated, cartController.getCartProducts); // Obtiene todos los productos de un cart determinado.
 
 router.delete("/:id", isAuthenticated, cartController.deleteCart); // Elimina un cart por completo.
-
-router.get("/:id/products", isAuthenticated, cartController.getCartProducts); // Obtiene todos los productos de un cart determinado.
 
 router.post("/:id/products/:prodId", isAuthenticated, cartController.addProduct); // Agrega un nuevo producto (body) a un carrito determinado por su id.
 
