@@ -1,5 +1,20 @@
 console.log("Esta siendo leido el cart.js")
 
+const deleteProduct = async (prodId) => {
+    const res = await fetch(`/api/cart/${prodId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.status !== 200) {
+        return
+    }
+
+    const product = document.getElementById(prodId)
+    product.parentNode.removeChild(product)
+
+    // Funct to update cart counter.
+}
+
 fetch("/api/cart")
 .then(res => res.json())
 .then(data => {
@@ -9,7 +24,7 @@ fetch("/api/cart")
     }
     data.forEach(prod => {
         rootCart.innerHTML += `
-        <tr>
+        <tr id="${prod.id}">
             <td class="p-2">
                 <div class="w-36 h-40 mb-4 flex items-center overflow-hidden">
                     <img src=${prod.img} class="max-w-16">
@@ -22,7 +37,11 @@ fetch("/api/cart")
                 </div>
             </td>
             <td class="p-2">
-                <div class="text-left">${prod.quantity}</div>
+                <div class="text-left">
+                    <button type="button" class="text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">-</button>
+                    ${prod.quantity}
+                    <button type="button" class="text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">+</button>
+                </div>
             </td>
             <td class="p-2">
                 <div class="text-left font-medium text-green-500">
@@ -31,7 +50,7 @@ fetch("/api/cart")
             </td>
             <td class="p-2">
                 <div class="flex justify-center">
-                    <button>
+                    <button type="button" onclick="deleteProduct('${prod.id}')">
                         <svg class="w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">

@@ -79,11 +79,11 @@ class CartModel {
         return [data, status]
     }
 
-    async deleteProduct(id, idProd) {
+    async deleteProduct(id, prodId) {
         let data, status;
 
-        const cart = await this.model.findById(id)
-        const prodIndex = cart.products.findIndex(prod => prod.id == idProd)
+        const cart = await this.model.findOne({ userId: id }).lean()
+        const prodIndex = cart.products.findIndex(prod => prod.id == prodId)
 
         if (prodIndex === -1) {
             status = 404
@@ -91,8 +91,8 @@ class CartModel {
             return [data, status]
         }
         
-        cart.products = cart.products.filter(prod => prod.id != idProd)
-        await this.model.updateOne({ _id: id }, cart)
+        cart.products = cart.products.filter(prod => prod.id != prodId)
+        await this.model.updateOne({ userId: id }, cart)
 
         status = 200
         data = { status: "success", description: "Product deleted." }
