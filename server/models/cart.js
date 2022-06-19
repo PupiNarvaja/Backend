@@ -22,13 +22,15 @@ class CartModel {
     }
 
     async addProduct(id, idProd) {
-        const cart = await this.model.findById(id)
+        const cart = await this.model.findOne({ userId: id }).lean()
+
         const [product, status] = await ProductsModel.getProduct(idProd)
 
         const newProduct = {
             id: idProd,
             quantity: 1,
             title: product.title,
+            img: product.img,
             description: product.description,
             price: product.price,
             code: product.code,
@@ -44,7 +46,7 @@ class CartModel {
         const prodInCart = cart.products.findIndex(prod => prod.id == idProd)
         if (prodInCart !== -1) {
             cart.products[prodInCart].quantity += 1
-            await this.model.updateOne({ _id: id }, cart)
+            await this.model.updateOne({ userId: id }, cart)
             let status = 201
             let data = { description: `One unit added. Total units of ${product.title} are: ${cart.products[prodInCart].quantity}.` }
             return [data, status]
@@ -56,7 +58,7 @@ class CartModel {
         }
 
         cart.products.push(newProduct)
-        await this.model.updateOne({ _id: id }, cart)
+        await this.model.updateOne({ userId: id }, cart)
         let data = { status: "success", description: `${product.title} added successfully.` }
         return [data, 201]
     }

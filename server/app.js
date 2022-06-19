@@ -42,8 +42,8 @@
 
             store: new mongoStore({
                 mongoUrl:  URI_CLOUD_CONNECTION,
-                ttl: 60 * 3,
-                expires:  60 * 3,
+                ttl: 60 * 30,
+                expires:  60 * 30,
                 autoRemove: "native"
             })
         }))

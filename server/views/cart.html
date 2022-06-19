@@ -22,11 +22,70 @@
         </div>
     </header>
 
-    <div class="m-10">
-        <h3 class="text-2xl mb-6">Take a look at your cart</h3>
-    </div>
+    <section class="antialiased text-gray-600 px-4 mt-[150px] mb-[400px]">
+        <div class="flex">
+            <!-- Table -->
+            <div class="w-full max-w-[75rem] mx-auto shadow-lg rounded-sm border border-gray-200">
+                <header class="px-5 py-4 border-b border-gray-100">
+                    <div class="font-semibold text-gray-800">Your items:</div>
+                </header>
+    
+                <div class="overflow-x-auto p-3">
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                            <tr>
+                                <th></th>
+                                <th class="p-2">
+                                    <div class="font-semibold text-left">Product Name</div>
+                                </th>
+                                <th class="p-2">
+                                    <div class="font-semibold text-left">Quantity</div>
+                                </th>
+                                <th class="p-2">
+                                    <div class="font-semibold text-left">Total</div>
+                                </th>
+                                <th class="p-2">
+                                    <div class="font-semibold text-center">Action</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody id="rootCart" class="divide-y divide-gray-100">
+                            
+                        </tbody>
+                    </table>
+                </div>
+    
+                <!-- total amount -->
+                <div class="flex justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
+                    <div>Total</div>
+                    <div class="text-blue-600">RM <span x-text="total.toFixed(2)"></span></div>
+                </div>
+    
+                <div class="flex justify-end">
+                    <!-- send this data to backend (note: use class 'hidden' to hide this input) -->
+                    <input type="text" class="border border-black bg-gray-50" x-model="selected" />
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="rootCart" class="mt-32 flex flex-wrap"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
     <script src="/static/js/index.js"></script>

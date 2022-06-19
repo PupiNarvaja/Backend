@@ -7,8 +7,8 @@ router.get("/", isAuthenticated, cartController.getCartProducts); // Obtiene tod
 
 router.delete("/:id", isAuthenticated, cartController.deleteCart); // Elimina un cart por completo.
 
-router.post("/:id/products/:prodId", isAuthenticated, cartController.addProduct); // Agrega un nuevo producto (body) a un carrito determinado por su id.
+router.post("/:prodId", isAuthenticated, cartController.addProduct); // Agrega un nuevo producto (body) a un carrito determinado por su id.
 
-router.delete("/:id/products/:prod", isAuthenticated, cartController.deleteProduct); // Elimina un producto determinado de un carrito determinado.
+router.delete("/:prodId", isAuthenticated, cartController.deleteProduct); // Elimina un producto determinado de un carrito determinado.
 
 module.exports = router;

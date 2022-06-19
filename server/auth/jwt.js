@@ -4,7 +4,7 @@ const SECRET = "jwtsecret"
 module.exports = {
     generateToken: (user) => {
         return jwt.sign(user, SECRET, {
-            expiresIn: "180s"
+            expiresIn: "1800s"
         })
     },
     verifyToken: (token) => {

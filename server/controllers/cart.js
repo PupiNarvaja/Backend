@@ -12,7 +12,8 @@ const logger = require('../log')
 // }
 
 const addProduct = async (req, res) => {
-    const { id, prodId } = req.params
+    const { id } = req.user
+    const { prodId } = req.params
     try {
         const product = await CartModel.addProduct(id, prodId)
         const [data, status] = product
