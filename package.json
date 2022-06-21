@@ -1,0 +1,44 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server/app.js",
+  "engines": {
+    "node": "16.13.0"
+  },
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon --ignore './client/*' -r dotenv/config .",
+    "pm2-fork": "pm2 start --no-daemon ./startmode/worker.config.js",
+    "pm2-cluster": "pm2 start --no-daemon ./startmode/cluster.config.js"
+  },
+  "author": "Narvaja, Juan Manuel",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "nodemailer": "^6.7.5",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pm2": "^5.2.0",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PupiNarvaja/Backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PupiNarvaja/Backend/issues"
+  },
+  "homepage": "https://github.com/PupiNarvaja/Backend#readme",
+  "description": ""
+}
