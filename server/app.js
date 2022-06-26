@@ -21,8 +21,6 @@
     const routerCart = require("./routers/cart")
     const routerJwt = require("./routers/jwt")
 
-    const isAuthenticated = require("./middlewares/isAuthenticated")
-
     const logger = require('./log')
     const path = require("path")
 
@@ -50,7 +48,8 @@
         app.use(passport.initialize())
         app.use(passport.session())
 
-        app.use("/static/", express.static(path.join(__dirname, "../public")))
+        app.use("/assets/", express.static(path.join(__dirname, "../client/dist/assets")))
+        app.use("/static/", express.static(path.join(__dirname, "../client/dist")))
 
         app.use("/", routerHome)
 
@@ -62,16 +61,18 @@
 
         app.use("/logout", routerLogout)
 
-        app.get("/cart", isAuthenticated, (req, res) => {
-            res.sendFile(path.join(__dirname, "./views/cart.html"))
-            // const total = cart.reduce((total, p) => total + p.price, 0)
-        })
+        // app.get("/cart", isAuthenticated, (req, res) => {
+        //     res.sendFile(path.join(__dirname, "./views/cart.html"))
+        //     // const total = cart.reduce((total, p) => total + p.price, 0)
+        // })
 
-        app.use("/api/cart", routerCart)
+        // app.use("/api/cart", routerCart)
 
         app.use("/api/products", routerProducts)
 
-        app.use("*", (req, res) => res.status(404).send({ error: "Page not found." }))
+        // app.get("*", (req, res) => {
+        //     res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"))
+        // })
 
         app.listen(PORT, () => logger.info("🚀 Server online."))
 

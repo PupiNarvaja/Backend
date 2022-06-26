@@ -18,7 +18,6 @@ module.exports = (passport) => {
             }
 
             const user = await UserModel.getUserByEmail(email)
-            logger.info(user)
 
             done(null, user)
 

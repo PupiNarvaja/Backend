@@ -1,10 +1,10 @@
 const router = require("express").Router()
 const passport = require("passport")
-const path = require("path") // Hasta usar react con SSR.
+const path = require("path")
 
 // /login
 router.get("/", (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, "../views/login.html"))
+    res.sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
 })
 
 router.post("/", passport.authenticate("login", {
