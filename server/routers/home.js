@@ -4,7 +4,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated")
 
 //  /
 router.get("/", isAuthenticated, (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
+    res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
 })
 
-module.exports = router;
+module.exports = router

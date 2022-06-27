@@ -1,4 +1,4 @@
-console.log("Esta siendo leido el script index.js")
+console.log("Esta siendo leido el bundle index.js")
 
 function cookieParser() {
   return (document.cookie || "").split("; ").reduce((obj, cookie) => {

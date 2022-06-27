@@ -6,7 +6,7 @@ const HomeContainer = ({ props }) => {
         <>
             <header className="w-full h-16 m-auto border-b-2 flex">
                 <div className="w-[70%] m-auto flex justify-between items-center">
-                    <h2>LOGO</h2>
+                    <Link to="/"><h2>LOGO</h2></Link>
                     <nav className="w-72">
                         <ul className="flex justify-between">
                             <li>LINK 1</li>

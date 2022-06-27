@@ -1,8 +1,8 @@
 const router = require("express").Router()
 
-const isAdmin = require("../middlewares/isAdmin")
-const isAuthenticated = require("../middlewares/isAuthenticated")
-const productController = require("../controllers/products")
+const isAdmin = require("../../middlewares/isAdmin")
+const isAuthenticated = require("../../middlewares/isAuthenticated")
+const productController = require("../../controllers/products")
 
 // /api/products
 router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.

@@ -1,8 +1,7 @@
 const winston = require("winston")
 const { combine, printf, timestamp, colorize } = winston.format
-// [${info.timestamp}] - info... No lo uso porque pm2 ya incluye timestamp.
 
-const myFormat = printf((info) => `${info.level}: ${info.message}`)
+const myFormat = printf((info) => `[${info.timestamp}] - ${info.level}: ${info.message}`)
 
 const logger = winston.createLogger({
     level: "debug",

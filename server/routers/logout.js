@@ -9,9 +9,7 @@ router.get("/", (req, res) => { // TEMPORAL.
 })
 
 router.post("/", isAuthenticated, (req, res, next) => {
-    const { firstname, lastname } = req.user
-
-    const greeting = `Goodbye ${firstname} ${lastname}! <br><a href="/login">Login</a>`
+    //const { firstname, lastname } = req.user
 
     res.clearCookie("token")
     
@@ -20,7 +18,7 @@ router.post("/", isAuthenticated, (req, res, next) => {
             logger.error(err)
             return next(err)
         }
-        res.status(200).sendFile(path.join(__dirname, "../views/logout.html"))
+        res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
     })
 })
 

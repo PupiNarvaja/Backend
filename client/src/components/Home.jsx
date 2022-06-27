@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react"
-import Product from "./ProductContainer/Product"
 import cookieParser from "../Utils/CookieParser"
-// import useFetch from "../hooks/useFetch"
+import ProductList from "./ProductContainer/ProductList"
 
 const Home = () => {
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
     
-    // const cookies = cookieParser()
-    // console.log(cookies);
+    const cookies = cookieParser()
 
-    // useEffect(() => {
-    //     fetch("/api/products", {
-    //         headers: {
-    //             authorization: `Bearer ${cookies.token}`
-    //         }
-    //     })
-    //     .then((res) => res.json())
-    //     .then((res) => console.log("Home res: " + res))
-    //     // .then((data) => setProducts(data))
-    //     // .finally(setLoading(false))
-    // }, [])
+    useEffect(() => {
+        fetch("http://localhost:8080/api/products", {
+            headers: {
+                authorization: `Bearer ${cookies.token}`
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => setProducts(data))
+        .finally(setLoading(false))
+    }, [])
 
 
     return (
@@ -41,7 +38,7 @@ const Home = () => {
                                 Loading...
                             </button>
                             :
-                            products
+                            <ProductList products={products} />
                 }
             </div>
         </>

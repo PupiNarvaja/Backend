@@ -1,10 +1,10 @@
 const router = require("express").Router()
-const isAuthenticated = require("../middlewares/isAuthenticated")
+const passportAuth = require("../middlewares/passportAuth")
 const { generateToken } = require("../auth/jwt")
 const logger = require("../log/winston")
 
-// /auth/jwt  QUIZAS ACA VA EL AUTH DE PASSPORT QUE BORRE.
-router.get("/", (req, res) => {
+// /auth/jwt
+router.get("/", passportAuth, (req, res) => {
     if (!req.user) {
         logger.error("No user from /auth/jwt")
         res.redirect("/login")
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
         res.clearCookie("token")
         res.cookie("token", token)// , { httpOnly: true }
     
-        logger.warn("Should redirect here.")
+        logger.warn("Redirecting...")
         res.redirect("/")
     }
 })

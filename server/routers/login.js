@@ -4,7 +4,7 @@ const path = require("path")
 
 // /login
 router.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
+    res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
 })
 
 router.post("/", passport.authenticate("login", {
