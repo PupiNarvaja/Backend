@@ -1,14 +1,11 @@
 const router = require("express").Router()
-const cartController = require("../controllers/cart");
-const isAuthenticated = require("../middlewares/isAuthenticated");
+const path = require("path")
+const isAuthenticated = require("../middlewares/isAuthenticated")
 
-//  /api/cart
-router.get("/", isAuthenticated, cartController.getCartProducts); // Obtiene todos los productos de un cart determinado.
+//  /cart
+router.get("/", isAuthenticated, (req, res) => {
+    res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
+    // const total = cart.reduce((total, p) => total + p.price, 0)
+})
 
-router.post("/:prodId", isAuthenticated, cartController.addProduct); // Agrega un nuevo producto a un carrito determinado.
-
-router.delete("/:prodId", isAuthenticated, cartController.deleteProduct); // Elimina un producto determinado de un carrito determinado.
-
-//router.delete("/:id", isAuthenticated, cartController.deleteCart); // Elimina un cart por completo.
-
-module.exports = router;
+module.exports = router

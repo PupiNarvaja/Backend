@@ -10,7 +10,8 @@ class UserModel {
             password: String,
             age: String,
             address: String,
-            phone: String
+            phone: String,
+            profile: String
         })
 
         this.model = model("users", schema)

@@ -5,28 +5,30 @@
     const express = require("express")
     const session = require("express-session")
     const passport = require("passport")
-
+    const path = require("path")
+    
     const mongoose = require("mongoose")
     const mongoStore = require("connect-mongo")
-
+    
     // ...luego nuestros propios documentos.
     const app = express()
     const initializePassport = require("./passport/local")
-
-    const routerProducts = require("./routers/products")
-    const routerRegister = require("./routers/register")
-    const routerLogout = require("./routers/logout")
-    const routerLogin = require("./routers/login")
-    const routerHome = require("./routers/home")
-    const routerCart = require("./routers/cart")
-    const routerJwt = require("./routers/jwt")
-
-    const isAuthenticated = require("./middlewares/isAuthenticated")
-
     const logger = require('./log')
-    const path = require("path")
+
+    const routerApiCart = require("./routers/api/apiCart")
+    const routerApiProducts = require("./routers/api/apiProducts")
+
+    const router404 = require("./routers/404")
+    const routerJwt = require("./routers/jwt")
+    const routerCart = require("./routers/cart")
+    const routerHome = require("./routers/home")
+    const routerLogin = require("./routers/login")
+    const routerLogout = require("./routers/logout")
+    const routerRegister = require("./routers/register")
+    const routerUnauthorized = require("./routers/unauthorized")
 
     const { URI_CLOUD_CONNECTION, PORT } = require("./config")
+
 
     try {
         await mongoose.connect(URI_CLOUD_CONNECTION)
@@ -50,11 +52,14 @@
         app.use(passport.initialize())
         app.use(passport.session())
 
-        app.use("/static/", express.static(path.join(__dirname, "../public")))
+
+        app.use("/assets/", express.static(path.join(__dirname, "../client/dist/assets")))
+        app.use("/static/", express.static(path.join(__dirname, "../client/dist")))
+
 
         app.use("/", routerHome)
 
-        app.use("/register", routerRegister)
+        app.get("/cart", routerCart)
 
         app.use("/login", routerLogin)
 
@@ -62,16 +67,15 @@
 
         app.use("/logout", routerLogout)
 
-        app.get("/cart", isAuthenticated, (req, res) => {
-            res.sendFile(path.join(__dirname, "./views/cart.html"))
-            // const total = cart.reduce((total, p) => total + p.price, 0)
-        })
+        app.use("/register", routerRegister)
 
-        app.use("/api/cart", routerCart)
+        app.use("/unauthorized", routerHome)
 
-        app.use("/api/products", routerProducts)
+        app.use("/api/cart", routerApiCart)
 
-        app.use("*", (req, res) => res.status(404).send({ error: "Page not found." }))
+        app.use("/api/products", routerApiProducts)
+
+        app.use(router404)
 
         app.listen(PORT, () => logger.info("🚀 Server online."))
 

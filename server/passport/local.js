@@ -8,17 +8,16 @@ module.exports = (passport) => {
         
         try {
             if (!await UserModel.existsByEmail(email)) {
-                logger.error("No existe el user.")
+                logger.error("Requested user does not exist.")
                 return done(null, false)
             }
 
             if (!await UserModel.isPasswordValid(email, password)) {
-                logger.error("Contraseña incorrecta!")
+                logger.error("Wrong password!")
                 return done(null, false)
             }
 
             const user = await UserModel.getUserByEmail(email)
-            logger.info(user)
 
             done(null, user)
 
@@ -28,7 +27,7 @@ module.exports = (passport) => {
     }
 
     const registerUser = async (req, email, password, done) => {
-        const { firstname, lastname, age, address, phone } = req.body
+        const { firstname, lastname, age, city, address, phone } = req.body
 
         try {
             if (await UserModel.existsByEmail(email)) {
@@ -42,8 +41,9 @@ module.exports = (passport) => {
                 firstname,
                 lastname,
                 age,
-                address,
-                phone
+                address: `${city}, ${address}`,
+                phone,
+                profile: "https://res.cloudinary.com/this/image/upload/v1656340004/avataaars_prf89a.png"
             })
 
             await CartModel.createCart(user._id)
@@ -51,7 +51,7 @@ module.exports = (passport) => {
             done(null, {
                 ...user,
                 id: user._id,
-                name: `${firstname} ${lastname}` // ----------> Problema: Informacion redundante. Al guardar, si guardo en mongo como "id", darias problemas por no tener_?
+                name: `${firstname} ${lastname}`
             })
 
         } catch (error) {
@@ -67,7 +67,7 @@ module.exports = (passport) => {
     passport.use("register", new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
-        passReqToCallback: true // req puede pasar a la callback, lo que hace posible el registro y su posterior login automatico.
+        passReqToCallback: true
     }, registerUser))
 
     passport.serializeUser((user, done) => done(null, user.id))
