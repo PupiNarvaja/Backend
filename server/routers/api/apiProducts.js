@@ -7,7 +7,7 @@ const productController = require("../../controllers/products")
 // /api/products
 router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.
 
-//router.get("/:id", isAuthenticated, isAdmin, productController.getProduct) // Obtiene un producto determinado.
+router.get("/:id", isAuthenticated, productController.getProduct) // Obtiene un producto determinado.
 
 //router.post("/", isAuthenticated, isAdmin, productController.createProduct) // Agrega un nuevo producto.
 

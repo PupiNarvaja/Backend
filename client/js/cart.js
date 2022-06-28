@@ -19,11 +19,11 @@ fetch("/api/cart")
 .then(res => res.json())
 .then(data => {
     if (data.length === 0) {
-        rootCart.innerHTML = `<p class="m-10">It seems like your cart is empty.</p>`
+        cartProducts.innerHTML = `<p class="m-10">It seems like your cart is empty.</p>`
         return 
     }
     data.forEach(prod => {
-        rootCart.innerHTML += `
+        cartProducts.innerHTML += `
         <tr id="${prod.id}">
             <td class="p-2">
                 <div class="w-36 h-40 mb-4 flex items-center overflow-hidden">

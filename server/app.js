@@ -28,7 +28,7 @@
     const routerUnauthorized = require("./routers/unauthorized")
 
     const { URI_CLOUD_CONNECTION, PORT } = require("./config")
-
+    const cors = require("cors")
 
     try {
         await mongoose.connect(URI_CLOUD_CONNECTION)
@@ -51,6 +51,7 @@
         }))
         app.use(passport.initialize())
         app.use(passport.session())
+        app.use(cors())
 
 
         app.use("/assets/", express.static(path.join(__dirname, "../client/dist/assets")))
