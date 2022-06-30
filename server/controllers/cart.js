@@ -43,7 +43,7 @@ const deleteProduct = async (req, res) => {
     try {
         const product = await CartModel.deleteProduct(id, prodId)
         const [data, status] = product
-        res.status(status).send(data)        
+        res.status(status).send(data)        // UN ALERT POR EJ QUE CONTENGA EL MENSAJE DE LA RES
     } catch (error) {
         logger.error(error)
         res.status(500).send({ error: error.message })

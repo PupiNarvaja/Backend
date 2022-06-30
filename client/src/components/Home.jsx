@@ -25,9 +25,6 @@ const Home = () => {
             <div className="m-10">
                 <h2 className="text-3xl">Welcome, user.</h2>
                 <h3 className="text-2xl mb-6">Take a look</h3>
-                <form action="/logout" method="POST">
-                    <button type="submit" className="px-6 py-2 text-sm font-semibold rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200">Log out</button>
-                </form>
             </div>
             <div className="flex flex-row flex-wrap">
                 { loading ? <button disabled type="button" className="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">

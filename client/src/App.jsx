@@ -7,6 +7,7 @@ import Register from "./components/Register"
 import NotFound from "./components/NotFound"
 import Logout from "./components/Logout";
 import Cart from "./components/CartContainer/Cart";
+import Profile from "./components/Profile";
 import Unauthorized from "./components/Unauthorized";
 import './App.css'
 
@@ -39,6 +40,11 @@ function App() {
             path='/cart'
             exact
             element={ <HomeContainer props={ <Cart /> } /> }
+          />
+          <Route
+            path='/profile'
+            exact
+            element={ <HomeContainer props={ <Profile /> } /> }
           />
           <Route
             path='/unauthorized'

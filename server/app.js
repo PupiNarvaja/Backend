@@ -16,6 +16,7 @@
     const logger = require('./log')
 
     const routerApiCart = require("./routers/api/apiCart")
+    const routerApiUser = require("./routers/api/apiUser")
     const routerApiProducts = require("./routers/api/apiProducts")
 
     const router404 = require("./routers/404")
@@ -24,6 +25,7 @@
     const routerHome = require("./routers/home")
     const routerLogin = require("./routers/login")
     const routerLogout = require("./routers/logout")
+    const routerProfile = require("./routers/profile")
     const routerRegister = require("./routers/register")
     const routerUnauthorized = require("./routers/unauthorized")
 
@@ -68,9 +70,13 @@
 
         app.use("/logout", routerLogout)
 
+        app.use("/profile", routerProfile)
+
         app.use("/register", routerRegister)
 
-        app.use("/unauthorized", routerHome)
+        app.use("/unauthorized", routerUnauthorized)
+
+        app.use("/api/user", routerApiUser)
 
         app.use("/api/cart", routerApiCart)
 

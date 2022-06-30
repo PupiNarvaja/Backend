@@ -16,11 +16,12 @@ const HomeContainer = ({ props }) => {
                 <div className={`${menu ? "showMenu" : ""} nav--container`}>
                     <nav id='navbar'>
                         <ul className="nav__ul">
-                            <li><Link to="/estudio" onClick={handleToggle}>El Estudio</Link></li>
-                            <li><Link to="/servicios" onClick={handleToggle}>Servicios</Link></li>
-                            <li><Link to="/equipo" onClick={handleToggle}>El Equipo</Link></li>
-                            <li><Link to="/clientes" onClick={handleToggle}>Clientes</Link></li>
-                            <li><Link to="/contacto" onClick={handleToggle}>Contacto</Link></li>
+                            <li><Link to="/" onClick={handleToggle}>Shirts</Link></li>
+                            <li><Link to="/" onClick={handleToggle}>Jackets</Link></li>
+                            <li><Link to="/profile" onClick={handleToggle}>My profile</Link></li>
+                            <form action="/logout" method="POST">
+                                <button type="submit" className="px-6 py-2 text-sm font-semibold rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200">Log out</button>
+                            </form>
                         </ul>
                     </nav>
                     <div className='social--container'>
