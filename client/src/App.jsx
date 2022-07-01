@@ -30,7 +30,7 @@ function App() {
           <Route
             path='/Register'
             exact
-            element={ <HomeContainer props={ <Register /> } /> }
+            element={ <Register /> }
           />
           <Route
             path='/logout'

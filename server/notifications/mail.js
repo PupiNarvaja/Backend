@@ -21,7 +21,18 @@ class MailSender {
             html: template
         }
 
-        const response = await this.transporter.sendMail(mailOptions)
+        await this.transporter.sendMail(mailOptions)
+    }
+
+    async newRegister(template) {
+        const mailOptions = {
+            from: "This - New user.",
+            subject: "New user registered.",
+            to: GMAIL_ADDRESS,
+            html: template
+        }
+
+        await this.transporter.sendMail(mailOptions)
     }
 }
 

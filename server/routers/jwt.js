@@ -11,11 +11,11 @@ router.get("/", passportAuth, (req, res) => {
     } else {
         logger.info("Generating token...")
         const token = generateToken(req.user)
-        logger.info(JSON.stringify(req.user))
+
         res.clearCookie("token")
         res.cookie("token", token)// , { httpOnly: true }
     
-        logger.warn("Redirecting...")
+        logger.info("Redirecting...")
         res.redirect("/")
     }
 })
