@@ -42,9 +42,16 @@ const Cart = () => {
                                 </tbody>
                             </table>
                         </div>
-                    <div className="flex justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
-                        <div>Total</div>
-                        <div className="text-blue-600">ARS <span x-text="total.toFixed(2)"></span></div>
+                    <div className="flex justify-between font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
+                        <div>
+                            <p>Total</p>
+                            <p className="text-blue-600">ARS <span x-text="total.toFixed(2)"></span></p>
+                        </div>
+                        <form action="/api/orders" method="POST">
+                            <button type="submit">
+                                Place my order
+                            </button>
+                        </form>
                     </div>
         
                     <div className="flex justify-end">

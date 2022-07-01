@@ -1,6 +1,6 @@
 const router = require("express").Router()
-const cartController = require("../../controllers/cart");
-const isAuthenticated = require("../../middlewares/isAuthenticated");
+const cartController = require("../../controllers/cart")
+const isAuthenticated = require("../../middlewares/isAuthenticated")
 
 //  /api/cart
 router.get("/", isAuthenticated, cartController.getCartProducts); // Obtiene todos los productos de un cart determinado.

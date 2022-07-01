@@ -79,6 +79,12 @@ class CartModel {
         return [data, status]
     }
 
+    async emptyCart(userId) {
+        const cart = await this.model.findOne({ userId })
+        cart.products = []
+        await this.model.updateOne({ userId: userId }, cart)
+    }
+
     async deleteProduct(id, prodId) {
         let data, status;
 

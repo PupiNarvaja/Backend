@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import Cart from "./components/CartContainer/Cart";
 import Profile from "./components/Profile";
 import Unauthorized from "./components/Unauthorized";
+import Order from './components/Order';
 import './App.css'
 
 function App() {
@@ -45,6 +46,11 @@ function App() {
             path='/profile'
             exact
             element={ <HomeContainer props={ <Profile /> } /> }
+          />
+          <Route
+            path='/order'
+            exact
+            element={ <HomeContainer props={ <Order /> } /> }
           />
           <Route
             path='/unauthorized'

@@ -18,11 +18,13 @@
     const routerApiCart = require("./routers/api/apiCart")
     const routerApiUser = require("./routers/api/apiUser")
     const routerApiProducts = require("./routers/api/apiProducts")
+    const routerApiOrders = require("./routers/api/api.orders.router")
 
     const router404 = require("./routers/404")
     const routerJwt = require("./routers/jwt")
     const routerCart = require("./routers/cart")
     const routerHome = require("./routers/home")
+    const routerOrder = require("./routers/order")
     const routerLogin = require("./routers/login")
     const routerLogout = require("./routers/logout")
     const routerProfile = require("./routers/profile")
@@ -62,7 +64,7 @@
 
         app.use("/", routerHome)
 
-        app.get("/cart", routerCart)
+        app.use("/cart", routerCart)
 
         app.use("/login", routerLogin)
 
@@ -72,6 +74,8 @@
 
         app.use("/profile", routerProfile)
 
+        app.use("/order", routerOrder)
+
         app.use("/register", routerRegister)
 
         app.use("/unauthorized", routerUnauthorized)
@@ -79,10 +83,12 @@
         app.use("/api/user", routerApiUser)
 
         app.use("/api/cart", routerApiCart)
+        
+        app.use("/api/orders", routerApiOrders)
 
         app.use("/api/products", routerApiProducts)
 
-        app.use(router404)
+        //app.use(router404)
 
         app.listen(PORT, () => logger.info("🚀 Server online."))
 
