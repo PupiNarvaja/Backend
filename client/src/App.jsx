@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import Cart from "./components/CartContainer/Cart";
 import Profile from "./components/Profile";
 import Unauthorized from "./components/Unauthorized";
+import AdminOrders from "./components/admin/orders";
 import Order from './components/Order';
 import './App.css'
 
@@ -55,7 +56,12 @@ function App() {
           <Route
             path='/unauthorized'
             exact
-            element={ <Unauthorized /> }
+            element={ <HomeContainer props={ <Unauthorized /> } /> }
+          />
+          <Route
+            path='/admin/orders'
+            exact
+            element={ <HomeContainer props={ <AdminOrders /> } /> }
           />
           <Route
             path='*'

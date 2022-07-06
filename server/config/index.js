@@ -12,13 +12,19 @@ const PORT = process.argv[2] || process.env.PORT
 const NODE_ENV = process.env.NODE_ENV || "production"
 
 // Email
-GMAIL_ADDRESS = process.env.GMAIL_ADDRESS,
+GMAIL_ADDRESS = process.env.GMAIL_ADDRESS
 GMAIL_PASSWORD = process.env.GMAIL_PASSWORD
+
+// Twilio
+TWILIO_SID = process.env.TWILIO_SID
+TWILIO_AUTH = process.env.TWILIO_AUTH
 
 module.exports = {
     URI_CLOUD_CONNECTION,
     PORT,
     NODE_ENV,
     GMAIL_ADDRESS,
-    GMAIL_PASSWORD
+    GMAIL_PASSWORD,
+    TWILIO_SID,
+    TWILIO_AUTH
 }

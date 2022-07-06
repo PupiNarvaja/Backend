@@ -27,16 +27,25 @@ class OrderModel {
     }
 
     async newOrder(orderObj, products) {
-        const order = await this.model.create({
+        await this.model.create({
             ...orderObj,
             created: moment().format("DD-MM-YYYY HH:mm"),
-            products: products
+            products: products,
+            sent: false
         })
+    }
 
-        return {
-            ...order, // Es necesario que retorne algo?
-            sent: order.sent ? "Yes" : "No"
-        }
+    async updateSentOrder(id) {
+        const order = await this.model.findById(id)
+
+        order.sent = true
+
+        await this.model.updateOne({ _id: id }, order)
+    }
+
+    async findOrderById(orderId) {
+        const order = this.model.findById(orderId)
+        return order
     }
 }
 

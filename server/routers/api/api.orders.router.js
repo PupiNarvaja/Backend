@@ -1,10 +1,23 @@
 const router = require("express").Router()
 const isAuthenticated = require("../../middlewares/isAuthenticated")
+const isAdmin = require("../../middlewares/isAdmin")
 const mailSender = require("../../notifications/mail")
+const twilioSender = require("../../notifications/twilio")
+const UserModel = require("../../models/user")
 const CartModel = require("../../models/cart")
 const OrderModel = require("../../models/order.model")
+const logger = require("../../log/winston")
 
 // /api/orders
+router.get("/", isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const orders = await OrderModel.getAll()
+        res.send(orders)        
+    } catch (error) {
+        logger.error(error)
+    }
+})
+
 router.post("/", isAuthenticated, async (req, res) => {
     const { id, email } = req.user
 
@@ -15,6 +28,7 @@ router.post("/", isAuthenticated, async (req, res) => {
         const productsPrices = products.map(prod => prod.price * prod.quantity)
         const productsDetails = products.map(prod => ({
             id: prod.id,
+            title: prod.title,
             quantity: prod.quantity,
             price: prod.price * prod.quantity
         }))
@@ -42,7 +56,39 @@ router.post("/", isAuthenticated, async (req, res) => {
 
         res.redirect("/order")
     } catch (error) {
-        console.log(error)
+        logger.error(error)
+    }
+})
+
+router.post("/:orderId", isAuthenticated, isAdmin, async (req, res) => {
+    const orderId = req.params.orderId
+
+    if (!orderId) {
+        return res.sendStatus(404)
+    }
+
+    try {
+        const order = await OrderModel.findOrderById(orderId)
+
+        const user = await UserModel.getUserById(order.userId)
+
+        await OrderModel.updateSentOrder(orderId)
+
+        const productsLi = order.products.map(prod => `<li>${prod.title} x${prod.quantity} subtotal: $${prod.price}</li>`)
+        const template = `
+                <h1>Your purchase is on the way🔥</h1>
+                <h2>Details:</h2>
+                <ul>
+                    ${productsLi.join(" ")}
+                    <br>
+                    <li>Total: $${order.total}</li>
+                </ul>
+                `
+        mailSender.send(template, user.email)
+
+        twilioSender.sendWhatsapp(user.phone)
+    } catch (error) {
+        logger.error("Error at sending product: ", error)
     }
 })
 

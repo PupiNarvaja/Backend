@@ -30,6 +30,7 @@
     const routerProfile = require("./routers/profile")
     const routerRegister = require("./routers/register")
     const routerUnauthorized = require("./routers/unauthorized")
+    const routerAdminOrders = require("./routers/adminRoutes/admin.route.orders")
 
     const { URI_CLOUD_CONNECTION, PORT } = require("./config")
     const cors = require("cors")
@@ -87,6 +88,8 @@
         app.use("/api/orders", routerApiOrders)
 
         app.use("/api/products", routerApiProducts)
+
+        app.use("/admin/orders", routerAdminOrders)
 
         //app.use(router404)
 
