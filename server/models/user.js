@@ -32,7 +32,7 @@ class UserModel {
     }
 
     async getUserByEmail(email) {
-        const user = await this.model.findOne({ email })
+        const user = await this.model.findOne({ email }).lean()
         return {
             id: user._id,
             firstname: user.firstname,
@@ -43,13 +43,13 @@ class UserModel {
     }
 
     async isPasswordValid(email, password) {
-        const user = await this.model.findOne({ email })
+        const user = await this.model.findOne({ email }).lean()
 
         return await bcrypt.compare(password, user.password)
     }
     
     async isAdmin(email) {
-        const user = await this.model.findOne({ email })
+        const user = await this.model.findOne({ email }).lean()
         return user.admin
     }
 }

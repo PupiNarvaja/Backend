@@ -80,7 +80,7 @@ class CartModel {
     }
 
     async emptyCart(userId) {
-        const cart = await this.model.findOne({ userId })
+        const cart = await this.model.findOne({ userId }).lean()
         cart.products = []
         await this.model.updateOne({ userId: userId }, cart)
     }

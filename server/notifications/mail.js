@@ -24,7 +24,19 @@ class MailSender {
         await this.transporter.sendMail(mailOptions)
     }
 
-    async newRegister(template) {
+    async newRegister(newUser) {
+        const template = `
+            <h1 style="color: red;">A new user has registered.</h1>
+            <h2>User's data:</h2>
+            <ul>
+                <li>id: ${newUser._id}</li>
+                <li>Email: ${newUser.email}</li>
+                <li>Name: ${newUser.firstname} ${newUser.lastname}</li>
+                <li>Age: ${newUser.age}</li>
+                <li>Address: ${newUser.address}</li>
+                <li>Phone number: ${newUser.phone}</li>
+            </ul>
+            `
         const mailOptions = {
             from: "This - New user.",
             subject: "New user registered.",

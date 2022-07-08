@@ -5,3 +5,4 @@ build
 .env
 notes.txt
 logs
+.nvmrc

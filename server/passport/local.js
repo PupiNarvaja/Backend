@@ -50,20 +50,8 @@ module.exports = (passport) => {
             await CartModel.createCart(user._id)
     
             const newUser = await UserModel.getUserById(user._id)
-            
-            const template = `
-                <h1 style="color: red;">A new user has registered.</h1>
-                <h2>User's data:</h2>
-                <ul>
-                    <li>id: ${newUser._id}</li>
-                    <li>Email: ${newUser.email}</li>
-                    <li>Name: ${newUser.firstname} ${newUser.lastname}</li>
-                    <li>Age: ${newUser.age}</li>
-                    <li>Address: ${newUser.address}</li>
-                    <li>Phone number: ${newUser.phone}</li>
-                </ul>
-                `
-            mailSender.newRegister(template)
+
+            mailSender.newRegister(newUser)
     
             done(null, {
                 ...user,
