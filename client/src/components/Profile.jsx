@@ -8,7 +8,7 @@ const Profile = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("/api/user", {
+        fetch("/api/users", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -114,7 +114,7 @@ export default Profile
 //     const cookies = cookieParser()
 
 //     useEffect(() => {
-//         fetch("/api/user", {
+//         fetch("/api/users", {
 //             headers: {
 //                 authorization: `Bearer ${cookies.token}`
 //             }

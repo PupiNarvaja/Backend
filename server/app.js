@@ -15,22 +15,19 @@
     const initializePassport = require("./passport/local")
     const logger = require('./log')
 
-    const routerApiCart = require("./routers/api/apiCart")
-    const routerApiUser = require("./routers/api/apiUser")
-    const routerApiProducts = require("./routers/api/apiProducts")
+    const routerApiCart = require("./routers/api/api.cart")
+    const routerApiUsers = require("./routers/api/api.users")
+    const routerApiProducts = require("./routers/api/api.products")
     const routerApiOrders = require("./routers/api/api.orders.router")
 
+    const routerUniversal = require("./routers/router.index")
+    const routerUniversalNoAuth = require("./routers/router.indexNoAuth")
     const router404 = require("./routers/404")
     const routerJwt = require("./routers/jwt")
-    const routerCart = require("./routers/cart")
-    const routerHome = require("./routers/home")
-    const routerOrder = require("./routers/order")
     const routerLogin = require("./routers/login")
     const routerLogout = require("./routers/logout")
-    const routerProfile = require("./routers/profile")
     const routerRegister = require("./routers/register")
-    const routerUnauthorized = require("./routers/unauthorized")
-    const routerAdminOrders = require("./routers/adminRoutes/admin.route.orders")
+    const routerAdmin = require("./routers/adminRoutes/admin.router")
 
     const { URI_CLOUD_CONNECTION, PORT } = require("./config")
     const cors = require("cors")
@@ -63,9 +60,15 @@
         app.use("/static/", express.static(path.join(__dirname, "../client/dist")))
 
 
-        app.use("/", routerHome)
+        app.use("/", routerUniversal)
 
-        app.use("/cart", routerCart)
+        app.use("/cart", routerUniversal)
+
+        app.use("/profile", routerUniversal)
+        
+        app.use("/order", routerUniversal)
+
+        app.use("/unauthorized", routerUniversalNoAuth)
 
         app.use("/login", routerLogin)
 
@@ -73,15 +76,9 @@
 
         app.use("/logout", routerLogout)
 
-        app.use("/profile", routerProfile)
-
-        app.use("/order", routerOrder)
-
         app.use("/register", routerRegister)
 
-        app.use("/unauthorized", routerUnauthorized)
-
-        app.use("/api/user", routerApiUser)
+        app.use("/api/users", routerApiUsers)
 
         app.use("/api/cart", routerApiCart)
         
@@ -89,7 +86,7 @@
 
         app.use("/api/products", routerApiProducts)
 
-        app.use("/admin/orders", routerAdminOrders)
+        app.use("/admin", routerAdmin)
 
         //app.use(router404)
 

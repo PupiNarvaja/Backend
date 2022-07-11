@@ -1,26 +1,11 @@
 const router = require("express").Router()
 const isAuthenticated = require("../middlewares/isAuthenticated")
-const logger = require('../log')
-const path = require("path")
+const UniversalController = require("../controllers/universal.controller")
+const LogoutController = require("../controllers/logout.controller")
 
-// /logout
-router.get("/", (req, res) => { // TEMPORAL.
-    res.redirect("/")
-})
+// "/logout"
+router.get("/", UniversalController.redirectToHome) // It redirects to homepage.
 
-router.post("/", isAuthenticated, (req, res, next) => {
-    //const { firstname, lastname } = req.user
+router.post("/", isAuthenticated, LogoutController.logout) // It clears the "token" cookie, logs out the user and sends a logout message.
 
-    res.clearCookie("token")
-    
-    req.logOut((err) => {
-        if (err) {
-            logger.error(err)
-            return next(err)
-        }
-        res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
-    })
-})
-
-
-module.exports = router;
+module.exports = router

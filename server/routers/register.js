@@ -1,11 +1,9 @@
 const router = require("express").Router()
 const passport = require("passport")
-const path = require("path")
+const UniversalController = require("../controllers/universal.controller")
 
-// /register
-router.get("/", (req, res) => {
-    res.status(200).sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
-})
+// "/register"
+router.get("/", UniversalController.sendIndex)
 
 router.post("/", passport.authenticate("register", {
     successRedirect: "/auth/jwt",
@@ -13,4 +11,4 @@ router.post("/", passport.authenticate("register", {
 }))
 
 
-module.exports = router;
+module.exports = router

@@ -1,9 +1,7 @@
 const router = require("express").Router()
-const path = require("path")
+const UniversalController = require("../controllers/universal.controller")
 
-//  *
-router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../client/dist", "index.html"))
-})
+//  "*"
+router.get("*", UniversalController.sendIndex)
 
 module.exports = router

@@ -37,7 +37,7 @@ const Cart = () => {
                                     </tr>
                                 </thead>
                                 
-                                <tbody id="cartProducts" className="divide-y divide-gray-100">
+                                <tbody className="divide-y divide-gray-100">
                                     <CartList products={cartList} />
                                 </tbody>
                             </table>

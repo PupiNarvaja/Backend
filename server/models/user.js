@@ -18,6 +18,18 @@ class UserModel {
         this.model = model("users", schema)
     }
 
+    async getAllUsers() {
+        const data = await this.model.find({}).lean()
+
+        return data.map((user) => ({
+            id: user._id.toString(),
+            name: `${user.firstname} ${user.lastname}`,
+            email: user.email,
+            phone: user.phone,
+            address: user.address
+        }))
+    }
+
     async saveUser(obj) {
         obj.password = await bcrypt.hash(obj.password, 10)
         return await this.model.create(obj)

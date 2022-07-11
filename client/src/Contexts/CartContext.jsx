@@ -11,7 +11,7 @@ export const CartContextProvider = ({ children }) => {
     const cookies = cookieParser()
     
     const updateCart = () => {
-        fetch("http://localhost:8080/api/cart", {
+        fetch("/api/cart", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }

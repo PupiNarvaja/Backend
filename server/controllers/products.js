@@ -51,6 +51,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     const { id } = req.params
+    
     try {
         const deleted = await ProductModel.deleteProduct(id)
         const [data, status] = deleted

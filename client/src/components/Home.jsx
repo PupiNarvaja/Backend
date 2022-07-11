@@ -9,7 +9,7 @@ const Home = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/products", {
+        fetch("/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
