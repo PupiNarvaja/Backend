@@ -10,9 +10,7 @@ import Logout from "./components/Logout";
 import Cart from "./components/CartContainer/Cart";
 import Profile from "./components/Profile";
 import Unauthorized from "./components/Unauthorized";
-import AdminOrders from "./components/admin/orders";
-import AdminUsers from "./components/admin/admin.users/AdminUsers";
-import AdminProducts from "./components/admin/admin.products/AdminProducts";
+import Admin from "./components/admin/admin";
 import Order from './components/Order';
 import './App.css'
 
@@ -63,19 +61,9 @@ function App() {
             element={ <HomeContainer props={ <Unauthorized /> } /> }
           />
           <Route
-            path='/admin/orders'
+            path='/admin'
             exact
-            element={ <HomeContainer props={ <AdminOrders /> } /> }
-          />
-          <Route
-            path='/admin/users'
-            exact
-            element={ <HomeContainer props={ <AdminUsers /> } /> }
-          />
-          <Route
-            path='/admin/products'
-            exact
-            element={ <HomeContainer props={ <AdminProducts /> } /> }
+            element={ <HomeContainer props={ <Admin /> } /> }
           />
           <Route
             path='*'

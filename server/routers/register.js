@@ -1,14 +1,10 @@
 const router = require("express").Router()
-const passport = require("passport")
+const PassportController = require("../controllers/passport.controller")
 const UniversalController = require("../controllers/universal.controller")
 
 // "/register"
 router.get("/", UniversalController.sendIndex)
 
-router.post("/", passport.authenticate("register", {
-    successRedirect: "/auth/jwt",
-    failureRedirect: "/register"
-}))
-
+router.post("/", PassportController.register)
 
 module.exports = router

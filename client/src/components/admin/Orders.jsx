@@ -19,7 +19,7 @@ const Orders = () => {
     
 
     return (
-        <section className="antialiased text-gray-600 px-4 mt-[150px] mb-[400px]">
+        <section className="antialiased text-gray-600 px-4 mt-[50px] mb-[400px]">
             <div className="flex">
                 <div className="w-full max-w-[75rem] mx-auto shadow-lg rounded-sm border border-gray-200">
                     <div className="px-5 py-4 border-b border-gray-100">

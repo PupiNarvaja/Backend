@@ -7,12 +7,6 @@ const isAdmin = require("../../middlewares/isAdmin")
 router.use(isAuthenticated)
 router.use(isAdmin)
 
-//router.get("/", UniversalController.sendIndex) // CREAR EN REACT PANTALLA ADMIN
-
-router.get("/products", UniversalController.sendIndex)
-
-router.get("/users", UniversalController.sendIndex)
-
-router.get("/orders", UniversalController.sendIndex)
+router.get("/", UniversalController.sendIndex)
 
 module.exports = router
