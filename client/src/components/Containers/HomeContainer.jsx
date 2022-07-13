@@ -19,7 +19,7 @@ const HomeContainer = ({ props }) => {
                             <li><Link to="/" onClick={handleToggle}>Shirts</Link></li>
                             <li><Link to="/" onClick={handleToggle}>Jackets</Link></li>
                             <li><Link to="/profile" onClick={handleToggle}>My profile</Link></li>
-                            <li><Link to="/admin" onClick={handleToggle}>Admin</Link></li>
+                            <li><a href="/admin" onClick={handleToggle}>Admin</a></li> {/* Se utiliza <a> para que recargue la pagina y asi verifique si es admin o no. */}
                             <form action="/logout" method="POST">
                                 <button type="submit" className="px-6 py-2 text-sm font-semibold rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200">Log out</button>
                             </form>

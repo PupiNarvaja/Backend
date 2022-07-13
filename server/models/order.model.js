@@ -1,7 +1,8 @@
-const { Schema, model } = require("mongoose")
+const { Schema } = require("mongoose")
 const moment = require("moment")
+const BaseModel = require("./base.model")
 
-class OrderModel {
+class OrderModel extends BaseModel {
     constructor() {
         const schema = new Schema({
             userId: String,
@@ -11,7 +12,7 @@ class OrderModel {
             sent: Boolean
         })
 
-        this.model = model("orders", schema)
+        super(schema, "orders")
     }
 
     async getAll() {
@@ -29,7 +30,7 @@ class OrderModel {
     async newOrder(orderObj, products) {
         await this.model.create({
             ...orderObj,
-            created: moment().format("DD-MM-YYYY HH:mm"),
+            created: moment().format(),
             products: products,
             sent: false
         })
@@ -41,11 +42,6 @@ class OrderModel {
         order.sent = true
 
         await this.model.updateOne({ _id: id }, order)
-    }
-
-    async findOrderById(orderId) {
-        const order = this.model.findById(orderId)
-        return order
     }
 }
 

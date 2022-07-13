@@ -1,7 +1,8 @@
-const { Schema, model } = require("mongoose")
+const { Schema } = require("mongoose")
 const bcrypt = require("bcrypt")
+const BaseModel = require("./base.model")
 
-class UserModel {
+class UserModel extends BaseModel {
     constructor() {
         const schema = new Schema({
             email: String,
@@ -15,7 +16,7 @@ class UserModel {
             admin: Boolean
         })
 
-        this.model = model("users", schema)
+        super(schema, "users")
     }
 
     async getAllUsers() {
@@ -37,10 +38,6 @@ class UserModel {
 
     existsByEmail(email) {
         return this.model.exists({ email })
-    }
-
-    async getUserById(id) {
-        return await this.model.findById(id)
     }
 
     async getUserByEmail(email) {

@@ -52,7 +52,7 @@ const generateOrder = async (req, res) => {
 
         return res.redirect("/order")
     } catch (error) {
-        logger.error(error)
+        logger.error(`Error at generating your order: ${error}`)
     }
 }
 
@@ -64,9 +64,9 @@ const sendOrder = async (req, res) => {
     }
 
     try {
-        const order = await OrderModel.findOrderById(orderId)
+        const order = await OrderModel.getById(orderId)
 
-        const user = await UserModel.getUserById(order.userId)
+        const user = await UserModel.getById(order.userId)
 
         await OrderModel.updateSentOrder(orderId)
 

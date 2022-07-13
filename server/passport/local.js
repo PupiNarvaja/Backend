@@ -49,7 +49,7 @@ module.exports = (passport) => {
 
             await CartModel.createCart(user._id)
     
-            const newUser = await UserModel.getUserById(user._id)
+            const newUser = await UserModel.getById(user._id)
 
             mailSender.newRegister(newUser)
     
@@ -77,7 +77,7 @@ module.exports = (passport) => {
 
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
-        const user = await UserModel.getUserById(id)
+        const user = await UserModel.getById(id)
         done(null, {
             id: user._id.toString(),
             email: user.email,

@@ -5,7 +5,7 @@ const getUserInfo = async (req, res) => {
     const { id } = req.user
 
     try {
-        const user = await UserModel.getUserById(id)
+        const user = await UserModel.getById(id)
         res.send(user)
     } catch (error) {
        logger.error(error)

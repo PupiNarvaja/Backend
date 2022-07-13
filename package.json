@@ -6,6 +6,7 @@
     "node": "16.13.0"
   },
   "scripts": {
+    "lint": "eslint server/**/*.js",
     "start": "node server/app.js",
     "dev": "nodemon -r dotenv/config .",
     "heroku-postbuild": "npm run build",
@@ -29,6 +30,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pm2": "^5.2.0",
+    "prettier": "^2.7.1",
     "twilio": "^3.78.0",
     "winston": "^3.7.2"
   },
@@ -42,6 +44,16 @@
   "homepage": "https://github.com/PupiNarvaja/Backend#readme",
   "description": "",
   "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "nodemon": "^2.0.19"
   }
 }
