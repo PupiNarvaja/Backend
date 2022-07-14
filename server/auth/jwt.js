@@ -1,15 +1,15 @@
 const jwt = require("jsonwebtoken")
-const SECRET = "jwtsecret"
+const { JWT_SECRET } = require("../config")
 
 module.exports = {
     generateToken: (user) => {
-        return jwt.sign(user, SECRET, {
+        return jwt.sign(user, JWT_SECRET, {
             expiresIn: "1800s"
         })
     },
     verifyToken: (token) => {
         try {
-            jwt.verify(token, SECRET)
+            jwt.verify(token, JWT_SECRET)
             return true
         } catch (error) {
             return false

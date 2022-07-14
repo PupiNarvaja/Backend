@@ -19,6 +19,9 @@ GMAIL_PASSWORD = process.env.GMAIL_PASSWORD
 TWILIO_SID = process.env.TWILIO_SID
 TWILIO_AUTH = process.env.TWILIO_AUTH
 
+// JWT
+JWT_SECRET = process.env.JWT_SECRET
+
 module.exports = {
     URI_CLOUD_CONNECTION,
     PORT,
@@ -26,5 +29,6 @@ module.exports = {
     GMAIL_ADDRESS,
     GMAIL_PASSWORD,
     TWILIO_SID,
-    TWILIO_AUTH
+    TWILIO_AUTH,
+    JWT_SECRET
 }
