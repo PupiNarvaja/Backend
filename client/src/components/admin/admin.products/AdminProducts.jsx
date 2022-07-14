@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useProductContext } from '../../../Contexts/ProductContext'
 import AdminProductsList from './AdminProductsList'
+import AdminNewProduct from './AdminNewProduct'
 
 const AdminProducts = () => {
     const { updateItems, products } = useProductContext()
@@ -49,6 +50,7 @@ const AdminProducts = () => {
                     </div>
                 </div>
             </div>
+            <AdminNewProduct />
         </section>
     )
 }

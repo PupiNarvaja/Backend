@@ -4,6 +4,7 @@ import OrdersList from './OrdersList'
 
 const Orders = () => {
     const [orders, setOrders] = useState([])
+    // const [loading, setLoading] = useState(true)
 
     const cookies = cookieParser()
 
@@ -17,7 +18,6 @@ const Orders = () => {
         .then(data => setOrders(data))
     }, [])
     
-
     return (
         <section className="antialiased text-gray-600 px-4 mt-[50px] mb-[400px]">
             <div className="flex">
@@ -49,7 +49,14 @@ const Orders = () => {
                             </thead>
                             
                             <tbody id="cartProducts" className="divide-y divide-gray-100">
-                                <OrdersList orders={orders} />
+                                {orders != [] ? 
+                                        <tr>
+                                            <td className="p-2">
+                                            <p className="absolute left-0 right-0 text-center">There are no orders placed.</p>
+                                            </td>
+                                        </tr>
+                                    : 
+                                    <OrdersList orders={orders} />}
                             </tbody>
                         </table>
                     </div>
