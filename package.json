@@ -9,7 +9,7 @@
     "lint": "eslint server/**/*.js",
     "start": "node server/app.js",
     "dev": "nodemon -r dotenv/config .",
-    "heroku-postbuild": "cd clientnpm run build",
+    "heroku-postbuild": "cd client npm run build",
     "pm2-fork": "pm2 start --no-daemon ./startmode/worker.config.js",
     "pm2-cluster": "pm2 start --no-daemon ./startmode/cluster.config.js"
   },
