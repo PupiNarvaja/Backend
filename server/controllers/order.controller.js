@@ -1,13 +1,15 @@
-const OrderModel = require("../models/order.model")
-const CartModel = require("../models/cart")
-const UserModel = require("../models/user")
+const ModelFactory = require("../models/model.factory")
 const mailSender = require("../notifications/mail")
 const twilioSender = require("../notifications/twilio")
-const logger = require("../log/winston")
+const logger = require("../log")
+
+const orderModel = ModelFactory.getModel("order")
+const cartModel = ModelFactory.getModel("cart")
+const userModel = ModelFactory.getModel("user")
 
 const getAllOrders = async (req, res) => {
     try {
-        const orders = await OrderModel.getAll()
+        const orders = await orderModel.getAll()
         return res.send(orders)        
     } catch (error) {
         logger.error(error)
@@ -20,7 +22,7 @@ const generateOrder = async (req, res) => {
     const context = { sent: false }
 
     try {
-        const [products] = await CartModel.getCartProducts(id)
+        const [products] = await cartModel.getCartProducts(id)
         const productsPrices = products.map(prod => prod.price * prod.quantity)
         const productsDetails = products.map(prod => ({
             id: prod.id,
@@ -36,8 +38,8 @@ const generateOrder = async (req, res) => {
             total
         }
 
-        await OrderModel.newOrder(order, productsDetails)
-        await CartModel.emptyCart(id)
+        await orderModel.newOrder(order, productsDetails)
+        await cartModel.emptyCart(id)
     
         const productsLi = products.map(prod => `<li>${prod.title}</li>`)
         const template = `
@@ -64,11 +66,11 @@ const sendOrder = async (req, res) => {
     }
 
     try {
-        const order = await OrderModel.getById(orderId)
+        const order = await orderModel.getById(orderId)
 
-        const user = await UserModel.getById(order.userId)
+        const user = await userModel.getById(order.userId)
 
-        await OrderModel.updateSentOrder(orderId)
+        await orderModel.updateSentOrder(orderId)
 
         const productsLi = order.products.map(prod => `<li>${prod.title} x${prod.quantity} subtotal: $${prod.price}</li>`)
         const template = `

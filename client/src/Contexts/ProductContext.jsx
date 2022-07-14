@@ -32,12 +32,34 @@ export const ProductContextProvider = ({ children }) => {
     }
 
     const deleteProduct = (prodId) => {
-        fetch(`/api/products/${prodId}`, {
-            method: 'DELETE'
-        })
-        .catch(e => console.log(e))
+        axios.delete(`/api/products/${prodId}`)
+            .then((res) => {
+                setProducts(products.filter(prod => prod._id !== prodId))
+                alert("Product deleted successfully!")
+            })
+            .catch(error => {
+                let message;
+                const status = error.response.status;
+                status == 400
+                    ? message = `An error occurred deleting product with id: ${prodId}. Code error: 400`
+                    : status == 401
+                    ? message = "Sorry. You are not authorized to do that. Code error: 401"
+                    : status == 403
+                    ? message = "Sorry. You do not have access to that resource. Code error: 403"
+                    : status == 404
+                    ? message = "Sorry, we couldn't find what you're looking for. Code error: 404"
+                    : status == 405
+                    ? message = "Sorry. Method not allowed. Code error: 405"
+                    : status == 406
+                    ? message = "Sorry. Data format not allowed. Code error: 406"
+                    : status == 409
+                    ? message = "Sorry. An error occurred trying to modify an element. Code error: 409"
+                    : status == 500
+                    ? message = "Sorry. An error occurred in our server. Code error: 500"
+                    : message = "Product deleted successfully!"
+                alert(message)
+            })
 
-        setProducts(products.filter(prod => prod._id !== prodId))
     }
 
     const createNewProduct = async (e)  => {

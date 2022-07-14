@@ -1,7 +1,9 @@
-const UserModel = require("../models/user")
+const ModelFactory = require("../models/model.factory")
+
+const userModel = ModelFactory.getModel("user")
 
 module.exports = async (req, res, next) => {
-    const isAdmin = await UserModel.isAdmin(req.user.email)
+    const isAdmin = await userModel.isAdmin(req.user.email)
 
     if (!isAdmin) {
         return res.redirect("/unauthorized")

@@ -1,24 +1,26 @@
 const LocalStrategy = require("passport-local").Strategy
-const UserModel = require("../models/user")
-const CartModel = require("../models/cart")
 const mailSender = require("../notifications/mail")
+const ModelFactory = require("../models/model.factory")
 const logger = require('../log')
+
+const userModel = ModelFactory.getModel("user")
+const cartModel = ModelFactory.getModel("cart")
 
 module.exports = (passport) => {
     const authenticateUser = async (email, password, done) => {
         
         try {
-            if (!await UserModel.existsByEmail(email)) {
+            if (!await userModel.existsByEmail(email)) {
                 logger.error("Requested user does not exist.")
                 return done(null, false)
             }
 
-            if (!await UserModel.isPasswordValid(email, password)) {
+            if (!await userModel.isPasswordValid(email, password)) {
                 logger.error("Wrong password!")
                 return done(null, false)
             }
 
-            const user = await UserModel.getUserByEmail(email)
+            const user = await userModel.getUserByEmail(email)
 
             done(null, user)
 
@@ -31,12 +33,12 @@ module.exports = (passport) => {
         const { firstname, lastname, age, city, address, phone } = req.body
 
         try {
-            if (await UserModel.existsByEmail(email)) {
+            if (await userModel.existsByEmail(email)) {
                 logger.error("user already exists!")
                 return done(null, false)
             }
     
-            const user = await UserModel.saveUser({
+            const user = await userModel.saveUser({
                 email,
                 password,
                 firstname,
@@ -47,9 +49,9 @@ module.exports = (passport) => {
                 profile: "https://res.cloudinary.com/this/image/upload/v1656340004/avataaars_prf89a.png"
             })
 
-            await CartModel.createCart(user._id)
+            await cartModel.createCart(user._id)
     
-            const newUser = await UserModel.getById(user._id)
+            const newUser = await userModel.getById(user._id)
 
             mailSender.newRegister(newUser)
     
@@ -77,7 +79,7 @@ module.exports = (passport) => {
 
     passport.serializeUser((user, done) => done(null, user.id))
     passport.deserializeUser(async (id, done) => {
-        const user = await UserModel.getById(id)
+        const user = await userModel.getById(id)
         done(null, {
             id: user._id.toString(),
             email: user.email,

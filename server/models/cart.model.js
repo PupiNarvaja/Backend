@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose")
-const ProductsModel = require("../models/products");
+const ProductsModel = require("./product.model");
 
 class CartModel {
     constructor() {

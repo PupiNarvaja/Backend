@@ -1,5 +1,5 @@
 const path = require("path")
-const logger = require('../log/winston')
+const logger = require('../log')
 
 const logout = (req, res, next) => {
     //const { firstname, lastname } = req.user

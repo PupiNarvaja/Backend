@@ -49,14 +49,15 @@ const Orders = () => {
                             </thead>
                             
                             <tbody id="cartProducts" className="divide-y divide-gray-100">
-                                {orders != [] ? 
+                                {/* {orders != [] ? 
                                         <tr>
                                             <td className="p-2">
                                             <p className="absolute left-0 right-0 text-center">There are no orders placed.</p>
                                             </td>
                                         </tr>
                                     : 
-                                    <OrdersList orders={orders} />}
+                                    <OrdersList orders={orders} />} */}
+                                    <OrdersList orders={orders} />
                             </tbody>
                         </table>
                     </div>

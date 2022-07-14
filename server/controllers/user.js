@@ -1,11 +1,13 @@
-const UserModel = require("../models/user")
+const ModelFactory = require("../models/model.factory")
 const logger = require('../log')
+
+const userModel = ModelFactory.getModel("user")
 
 const getUserInfo = async (req, res) => {
     const { id } = req.user
 
     try {
-        const user = await UserModel.getById(id)
+        const user = await userModel.getById(id)
         res.send(user)
     } catch (error) {
        logger.error(error)
@@ -15,7 +17,7 @@ const getUserInfo = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await UserModel.getAllUsers()
+        const users = await userModel.getAllUsers()
         res.send(users)
     } catch (error) {
         logger.error(error)

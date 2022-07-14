@@ -1,5 +1,5 @@
 const { generateToken } = require("../auth/jwt")
-const logger = require("../log/winston")
+const logger = require("../log")
 
 const generateTokenAndRedirect = (req, res) => {
     logger.info("Generating token...")
