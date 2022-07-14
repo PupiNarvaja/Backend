@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+ <html lang="en" > <!--class="dark" -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://img.icons8.com/dusk/64/000000/globe--v1.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Narvaja ecommerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index.4fad371f.js"></script>
+    <link rel="stylesheet" href="/assets/index.2d2f8909.css">
+  </head>
+  <body class="dark:bg-slate-800">
+    <div id="root"></div>
+
+    
+    <script>
+      console.log("Esta siendo leido el bundle index.js")
+
+      function cookieParser() {
+        return (document.cookie || "").split("; ").reduce((obj, cookie) => {
+          const [name, value] = cookie.split("=");
+          obj[name] = decodeURI(value);
+          return obj;
+        }, {});
+      }
+
+      const objCookies = cookieParser()
+
+      // const addToCart = async (prodId)  => {
+      //     const res = await fetch(`/api/cart/${prodId}`, {
+      //         method: 'POST'
+      //     })
+
+      //     if (res.status !== 200) {
+      //         return
+      //     }
+
+      //     // Funct to update cart counter.
+      // }
+
+      fetch("/api/products", {
+          headers: { authorization: `Bearer ${objCookies.token}` }
+      })
+      // .then(res => res.json())
+      // .then(data => {
+      //     if (!root) {
+      //         return
+      //     }
+      //     data.forEach(prod => {
+      //         root.innerHTML += `
+      //         <div class="m-10">
+      //             <div class="w-64 h-80 mb-4 flex items-center overflow-hidden">
+      //                 <img src=${prod.img}>
+      //             </div>
+      //             <p class="text-center archivo">${prod.title}</p>
+      //             <p class="text-center archivo">$${prod.price}</p>
+      //             <button onclick="addToCart('${prod._id}')" class="py-2 px-4 mx-auto block cursor-pointer hover:underline hover:underline-offset-2 archivo">Add to cart</button>
+      //         </div>`
+      //     })
+      // })
+      // .catch(e => console.log(e))
+    </script>
+  </body>
+</html>
