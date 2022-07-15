@@ -6,6 +6,7 @@
     "node": "16.13.0"
   },
   "scripts": {
+    "test": "mocha './server/tests/unit/**/*.js'",
     "lint": "eslint server/**/*.js",
     "start": "node server/app.js",
     "dev": "nodemon -r dotenv/config .",
@@ -24,6 +25,7 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^10.0.0",
     "moment": "^2.29.3",
     "mongoose": "^6.3.4",
     "nodemailer": "^6.7.5",

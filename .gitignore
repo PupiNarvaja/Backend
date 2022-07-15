@@ -4,3 +4,4 @@ package-lock.json
 notes.txt
 logs
 .nvmrc
+tests
