@@ -8,7 +8,7 @@ const Profile = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("/api/users", {
+        fetch("http://localhost:8080/api/users", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }

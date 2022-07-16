@@ -9,7 +9,7 @@ const Orders = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("/api/orders", {
+        fetch("http://localhost:8080/api/orders", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }

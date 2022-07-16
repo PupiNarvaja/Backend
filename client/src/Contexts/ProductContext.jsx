@@ -22,7 +22,7 @@ export const ProductContextProvider = ({ children }) => {
     const cookies = cookieParser()
     
     const updateItems = () => {
-        fetch("/api/products", {
+        fetch("http://localhost:8080/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -32,7 +32,7 @@ export const ProductContextProvider = ({ children }) => {
     }
 
     const deleteProduct = (prodId) => {
-        axios.delete(`/api/products/${prodId}`)
+        axios.delete(`http://localhost:8080/api/products/${prodId}`)
             .then((res) => {
                 setProducts(products.filter(prod => prod._id !== prodId))
                 alert("Product deleted successfully!")
@@ -67,7 +67,7 @@ export const ProductContextProvider = ({ children }) => {
         if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
             alert("Hay campos vacios!")
         } else {
-            axios.post("/api/products", newProduct)
+            axios.post("http://localhost:8080/api/products", newProduct)
                 .then(({ data }) => {
                     products.push(data)
                     setProducts(products)

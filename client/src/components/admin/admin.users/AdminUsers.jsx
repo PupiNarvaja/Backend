@@ -8,7 +8,7 @@ const AdminUsers = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("/api/users/all", {
+        fetch("http://localhost:8080/api/users/all", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }

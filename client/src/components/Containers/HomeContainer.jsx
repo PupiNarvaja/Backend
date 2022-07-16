@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../Contexts/UserContext"
 import "./HomeContainer.css"
 
 const HomeContainer = ({ props }) => {
@@ -8,6 +9,22 @@ const HomeContainer = ({ props }) => {
     const handleToggle = () => {
         setMenu(prev => !prev)
     }
+
+    const { token } = useUserContext()
+
+    const getProducts = () => {
+        if (!token) {
+            return
+        }
+        console.log("Desde homeContainer saludo.")
+        axios.get("http://localhost:8080/api/products", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    }
+
+    useEffect(getProducts, [token])
 
     return (
         <>

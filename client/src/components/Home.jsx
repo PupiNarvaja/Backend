@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react"
-import cookieParser from "../Utils/CookieParser"
 import ProductList from "./ProductContainer/ProductList"
+import axios from "axios"
+import { useUserContext } from "../Contexts/UserContext"
 
 const Home = () => {
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
 
-    const cookies = cookieParser()
+    const { token } = useUserContext()
 
-    useEffect(() => {
-        fetch("/api/products", {
+    const getProducts = () => {
+        if (!token) {
+            return
+        }
+        console.log("Desde home saludo.")
+        axios.get("http://localhost:8080/api/products", {
             headers: {
-                authorization: `Bearer ${cookies.token}`
+                Authorization: `Bearer ${token}`
             }
         })
-        .then((res) => res.json())
-        .then((data) => setProducts(data))
+        .then(res => console.log(res))
+        //.then(res => setProducts(res.data))
         .finally(setLoading(false))
-    }, [])
+    }
+
+    useEffect(getProducts, [])
 
 
     return (

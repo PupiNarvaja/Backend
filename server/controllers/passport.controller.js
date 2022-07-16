@@ -1,9 +1,6 @@
 const passport = require("passport")
 
-const login = passport.authenticate("login", {
-    successRedirect: "/auth/jwt",
-    failureRedirect: "/login"
-})
+const login = passport.authenticate("login", {})
 
 const register = passport.authenticate("register", {
     successRedirect: "/auth/jwt",

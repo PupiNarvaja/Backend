@@ -27,9 +27,10 @@ module.exports = (req, res, next) => {
     
 //     if (!header) {
 //         logger.error("There's no authorization token.")
-//         return res.redirect("/login")
+//         return res.send({ Error: "error" })
+//         //return res.redirect("/login")
 //     }
-//     // logger.info("Header: " + header)
+//     logger.info("Header: " + header)
 //     const token = header.split(" ")[1]
 
 //     // logger.info("Token: "+ token)

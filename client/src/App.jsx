@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartContextProvider } from './Contexts/CartContext'
 import { ProductContextProvider } from './Contexts/ProductContext'
+import { UserContextProvider } from './Contexts/UserContext'
 import HomeContainer from "./components/Containers/HomeContainer"
 import Home from './components/Home'
 import Login from "./components/Login"
@@ -13,9 +14,27 @@ import Unauthorized from "./components/Unauthorized";
 import Admin from "./components/admin/admin";
 import Order from './components/Order';
 import './App.css'
+import axios from "axios"
+import cookieParser from './Utils/CookieParser';
 
 function App() {
+
+  const token = cookieParser()
+
+  axios.interceptors.request.use(
+    async config => {
+      
+      config.headers = { 
+        'Authorization': `Bearer ${token}`,
+      }
+      return config;
+    },
+    error => {
+      Promise.reject(error)
+  });
+  
   return (
+    <UserContextProvider>
     <CartContextProvider>
     <ProductContextProvider>
       <BrowserRouter>
@@ -74,6 +93,7 @@ function App() {
       </BrowserRouter>
     </ProductContextProvider>
     </CartContextProvider>
+    </UserContextProvider>
   )
 }
 

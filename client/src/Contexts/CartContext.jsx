@@ -11,7 +11,7 @@ export const CartContextProvider = ({ children }) => {
     const cookies = cookieParser()
     
     const updateCart = () => {
-        fetch("/api/cart", {
+        fetch("http://localhost:8080/api/cart", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -21,7 +21,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const deleteProduct = (prodId) => {
-        fetch(`/api/cart/${prodId}`, {
+        fetch(`http://localhost:8080/api/cart/${prodId}`, {
             method: 'DELETE'
         })
         .catch(e => console.log(e))
@@ -30,7 +30,7 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const addToCart = async (prodId)  => {
-        const res = await fetch(`/api/cart/${prodId}`, {
+        const res = await fetch(`http://localhost:8080/api/cart/${prodId}`, {
             headers: { authorization: `Bearer ${cookies.token}` },
             method: 'POST'
         })

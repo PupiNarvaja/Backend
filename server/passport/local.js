@@ -9,6 +9,9 @@ const cartModel = ModelFactory.getModel("cart")
 module.exports = (passport) => {
     const authenticateUser = async (email, password, done) => {
         
+        console.log(email)
+        console.log(password)
+
         try {
             if (!await userModel.existsByEmail(email)) {
                 logger.error("Requested user does not exist.")
