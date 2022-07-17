@@ -29,12 +29,12 @@ module.exports = (req, res, next) => {
 //         logger.error("There's no authorization token.")
 //         return res.redirect("/login")
 //     }
-//     // logger.info("Header: " + header)
+//     logger.info("Header: " + header)
 //     const token = header.split(" ")[1]
 
-//     // logger.info("Token: "+ token)
+//     logger.warn("Token: "+ token)
 //     if (!verifyToken(token)) {
-//        logger.error("The token does not match. ") //  + token
+//         logger.error("The token does not match. ")
 //         return res.redirect("/login")
 //     }
     
