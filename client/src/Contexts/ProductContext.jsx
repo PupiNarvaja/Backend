@@ -17,12 +17,15 @@ export const ProductContextProvider = ({ children }) => {
         stock: "",
     }
 
-    const [products, setProducts] = useState([])
-    const [newProduct, setNewProduct] = useState(emptyProduct)
     const cookies = cookieParser()
     
+    const [products, setProducts] = useState([])
+    const [newProduct, setNewProduct] = useState(emptyProduct)
+
+    const [individualProduct, setIndividualProduct] = useState(emptyProduct)
+    
     const updateItems = () => {
-        fetch("/api/products", {
+        fetch("http://localhost:8080/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -32,7 +35,7 @@ export const ProductContextProvider = ({ children }) => {
     }
 
     const deleteProduct = (prodId) => {
-        axios.delete(`/api/products/${prodId}`)
+        axios.delete(`http://localhost:8080/api/products/${prodId}`)
             .then((res) => {
                 setProducts(products.filter(prod => prod._id !== prodId))
                 alert("Product deleted successfully!")
@@ -62,12 +65,12 @@ export const ProductContextProvider = ({ children }) => {
 
     }
 
-    const createNewProduct = async (e)  => {
+    const createNewProduct = (e)  => {
         e.preventDefault()
         if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
             alert("Hay campos vacios!")
         } else {
-            axios.post("/api/products", newProduct)
+            axios.post("http://localhost:8080/api/products", newProduct)
                 .then(({ data }) => {
                     products.push(data)
                     setProducts(products)
@@ -77,14 +80,39 @@ export const ProductContextProvider = ({ children }) => {
         }
     }
 
+    const getProduct = (prodId) => {
+        const product = products.find(prod => prod._id === prodId)
+        setIndividualProduct(product)
+    }
+
+    const updateProduct = async (prodId) => {
+        await axios.put(`http://localhost:8080/api/products/${prodId}`, individualProduct)
+        .then(res => console.log(res))
+
+        setIndividualProduct(emptyProduct)
+    }
+
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setIndividualProduct({
+            ...individualProduct,
+            [name]: value
+        })
+    }
+
     return (
         <ProductContext.Provider value={{
             products,
             updateItems,
             deleteProduct,
             createNewProduct,
+            getProduct,
             newProduct,
-            setNewProduct
+            setNewProduct,
+            individualProduct,
+            updateProduct,
+            handleChange,
         }}>
             { children }
         </ProductContext.Provider>

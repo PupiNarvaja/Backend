@@ -5,6 +5,7 @@ const productModel = ModelFactory.getModel("product")
 
 const getAllProducts = async (req, res) => {
     const { orderBy, order, search } = req.query
+
     try {
       const products = await productModel.getAllProducts(orderBy, order, search)
       res.status(200).send(products)
@@ -16,9 +17,9 @@ const getAllProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
     const { id } = req.params
+
     try {
-        const product = await productModel.getProduct(id)
-        const [data, status] = product
+        const [data, status] = await productModel.getProduct(id)
         res.status(status).send(data)        
     } catch (error) {
         logger.error(error)
@@ -28,9 +29,10 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
     const { body } = req
+    logger.info(body)
+
     try {
-        const newProd = await productModel.createProduct(body)
-        const [data, status] = newProd
+        const [data, status] = await productModel.createProduct(body)
         res.status(status).send(data)
     } catch (error) {
         logger.error(error)
@@ -41,9 +43,9 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     const { id } = req.params
     const { body } = req
+
     try {
-        const updated = await productModel.updateProduct(id, body)
-        const [data, status] = updated
+        const [data, status] = await productModel.updateProduct(id, body)
         res.status(status).send(data)       
     } catch (error) {
         logger.error(error)
@@ -55,9 +57,8 @@ const deleteProduct = async (req, res) => {
     const { id } = req.params
     
     try {
-        const deleted = await productModel.deleteProduct(id)
-        const [data, status] = deleted
-        res.status(status).send(data)  
+        const [data, status] = await productModel.deleteProduct(id)
+        res.status(status).send(data)
     } catch (error) {
         logger.error(error)
         res.status(500).send({ error: error.message })

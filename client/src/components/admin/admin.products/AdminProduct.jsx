@@ -1,7 +1,7 @@
 import { useProductContext } from "../../../Contexts/ProductContext"
 
 const Product = ({ prod }) => {
-    const { deleteProduct }  = useProductContext()
+    const { getProduct, deleteProduct }  = useProductContext()
 
     return (
         <tr>
@@ -22,9 +22,7 @@ const Product = ({ prod }) => {
             </td>
             <td className="p-4">
                 <div className="flex flex-col gap-2">
-                    <form action="/api/products/" method="POST">{/*  Cambiar por axios! */}
-                        <button type="submit" className="px-2 py-1 border-[1px] text-white bg-green-600 rounded-xl">Modify</button>
-                    </form>
+                    <button type="button" onClick={() => getProduct(`${prod._id}`)} className="px-2 py-1 border-[1px] text-white bg-green-600 rounded-xl">Modify</button>
                     <button type="button" onClick={() => deleteProduct(`${prod._id}`)} className="px-2 py-1 border-[1px] text-white bg-rose-600 rounded-xl">Delete</button>
                 </div>
             </td>

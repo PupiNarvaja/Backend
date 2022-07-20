@@ -14,29 +14,26 @@
 
     <script type="module" src="/src/main.jsx"></script>
     <script type="module">
-      // import axios from "axios"
-      // console.log("Esta siendo leido el bundle index.js")
+      import axios from "axios"
 
-      // function cookieParser() {
-      //   return (document.cookie || "").split("; ").reduce((obj, cookie) => {
-      //     const [name, value] = cookie.split("=");
-      //     obj[name] = decodeURI(value);
-      //     return obj;
-      //   }, {});
-      // }
+      function cookieParser() {
+        return (document.cookie || "").split("; ").reduce((obj, cookie) => {
+          const [name, value] = cookie.split("=");
+          obj[name] = decodeURI(value);
+          return obj;
+        }, {});
+      }
 
-      // const objCookies = cookieParser()
+      const cookie = cookieParser()
 
-      // fetch("/api/products", {
-      //   headers: { authorization: `Bearer ${objCookies.token}` } // -------> Probar enviando el login data con axios y esta config.
-      // })
-      // .then(res => console.log(res))
+      axios.defaults.baseURL = 'http://localhost:8080';
 
-      // axios.get("http://localhost:8080/api/products", {
-      //   headers: {
-      //       authorization: `Bearer ${objCookies.token}`
-      //   }
-      // }).then(res => console.log(res))
+      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.token}`;
+
+      axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+      axios.get("/api/products")
+      .then(res => console.log(res))
     </script>
   </body>
 </html>

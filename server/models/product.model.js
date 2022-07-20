@@ -30,17 +30,22 @@ class ProductModel {
             id: 1,
             timestamp: 1
         }).sort(sort)
-        // Desde el front controlar que si no se encuentra nada con el search,
-        // muestre mensaje de no se encontraron resultados.
     }
 
     async getProduct(id) {
         let status, data;
-        
+        const NOT_FOUND = { error: 404, description: "Requested product does not exist." }
+
+        if (id.length < 24) {
+            status = 404
+            data = NOT_FOUND
+            return [data, status]
+        }
+
         const prod = await this.model.findById(id)
         if (!prod) {
             status = 404
-            data = { error: 404, description: "Requested product does not exist." }
+            data = NOT_FOUND
             return [data, status]
         }
 
@@ -51,12 +56,6 @@ class ProductModel {
 
     async createProduct(prod) {
         let status, data;
-
-        if (prod.title === "" || prod.description === "" || prod.code === "" || prod.img === "" || prod.price === "" || prod.stock === "") {
-            status = 409
-            data = { error: 409, description: "Empty fields." }
-            return [data, status]
-        }
 
         const productExists = await this.model.exists({ title: prod.title })
         if (productExists) {
@@ -80,8 +79,8 @@ class ProductModel {
             return [data, status]
         }
 
-        const product = await this.model.findByIdAndUpdate(id, newProd).setOptions({returnDocument: 'after'})
-        
+        const product = await this.model.findByIdAndUpdate(id, newProd).setOptions({returnDocument: 'after'}) //Verificar el return after
+
         data = product
         status = 201
         return [data, status]

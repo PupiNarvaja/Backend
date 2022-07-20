@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useProductContext } from '../../../Contexts/ProductContext'
 import AdminProductsList from './AdminProductsList'
 import AdminNewProduct from './AdminNewProduct'
+import AdminUpdateProduct from './AdminUpdateProduct'
 
 const AdminProducts = () => {
-    const { updateItems, products } = useProductContext()
+    const { individualProduct, updateItems, products } = useProductContext()
 
     useEffect(() => {
         updateItems()
@@ -50,6 +51,9 @@ const AdminProducts = () => {
                     </div>
                 </div>
             </div>
+            {
+                individualProduct == {} ? "" : <AdminUpdateProduct />
+            }
             <AdminNewProduct />
         </section>
     )
