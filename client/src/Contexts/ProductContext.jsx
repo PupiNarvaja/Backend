@@ -23,9 +23,11 @@ export const ProductContextProvider = ({ children }) => {
     const [newProduct, setNewProduct] = useState(emptyProduct)
 
     const [individualProduct, setIndividualProduct] = useState(emptyProduct)
+
+    const [createOrUpdate, setCreateOrUpdate] = useState("create")
     
-    const updateItems = () => {
-        fetch("http://localhost:8080/api/products", {
+    const updateItems = async () => {
+        await fetch("http://localhost:8080/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -83,13 +85,16 @@ export const ProductContextProvider = ({ children }) => {
     const getProduct = (prodId) => {
         const product = products.find(prod => prod._id === prodId)
         setIndividualProduct(product)
+        setCreateOrUpdate("update")
     }
 
     const updateProduct = async (prodId) => {
         await axios.put(`http://localhost:8080/api/products/${prodId}`, individualProduct)
-        .then(res => console.log(res))
+        .then(res => setIndividualProduct(emptyProduct))
+        .catch(e => console.log(e))
 
-        setIndividualProduct(emptyProduct)
+        setCreateOrUpdate("create")
+        updateItems()
     }
 
     const handleChange = (e) => {
@@ -112,6 +117,8 @@ export const ProductContextProvider = ({ children }) => {
             setNewProduct,
             individualProduct,
             updateProduct,
+            createOrUpdate,
+            setCreateOrUpdate,
             handleChange,
         }}>
             { children }

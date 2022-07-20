@@ -6,6 +6,7 @@ const AdminNewProduct = () => {
   return (
     <div className="max-w-screen-xl px-4 pt-36 mx-auto sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto">
+            <h2 className="font-medium">Create new product:</h2>
             <form className="p-8 mt-6 mb-0 space-y-4 rounded-lg shadow-2xl">
                 <label htmlFor="title" className="text-sm font-medium dark:text-gray-200">Title</label>
                 <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="Title" type="text" name="title" value={newProduct.title} onChange={(e) => {

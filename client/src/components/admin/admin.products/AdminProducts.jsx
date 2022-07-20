@@ -5,7 +5,7 @@ import AdminNewProduct from './AdminNewProduct'
 import AdminUpdateProduct from './AdminUpdateProduct'
 
 const AdminProducts = () => {
-    const { individualProduct, updateItems, products } = useProductContext()
+    const { createOrUpdate, updateItems, products } = useProductContext()
 
     useEffect(() => {
         updateItems()
@@ -51,10 +51,7 @@ const AdminProducts = () => {
                     </div>
                 </div>
             </div>
-            {
-                individualProduct == {} ? "" : <AdminUpdateProduct />
-            }
-            <AdminNewProduct />
+            { createOrUpdate == "create" ? <AdminNewProduct /> : <AdminUpdateProduct /> }
         </section>
     )
 }
