@@ -13,6 +13,7 @@ import Unauthorized from "./components/Unauthorized";
 import Admin from "./components/admin/admin";
 import Order from './components/Order';
 import './App.css'
+import ProductDetails from './components/ProductContainer/ProductDetails';
 
 function App() {
   return (
@@ -54,6 +55,11 @@ function App() {
             path='/order'
             exact
             element={ <HomeContainer props={ <Order /> } /> }
+          />
+          <Route
+            path='/product/:id'
+            exact
+            element={ <HomeContainer props={ <ProductDetails /> } /> }
           />
           <Route
             path='/unauthorized'

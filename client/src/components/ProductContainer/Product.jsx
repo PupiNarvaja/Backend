@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useCartContext } from "../../Contexts/CartContext"
 
 const Product = ({ prod }) => {
@@ -7,7 +8,9 @@ const Product = ({ prod }) => {
     return (
         <div className="m-6 sm:m-10">
             <div className="w-36 h-56 sm:w-64 sm:h-80 mb-4 flex items-center overflow-hidden">
-                <img src={prod.img}/>
+                <Link to={`/product/${prod._id}`}>
+                    <img src={prod.img}/>
+                </Link>
             </div>
             <p className="text-center archivo">{prod.title}</p>
             <p className="text-center archivo">${prod.price}</p>

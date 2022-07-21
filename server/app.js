@@ -68,6 +68,8 @@
         
         app.use("/order", routerUniversal)
 
+        app.use("/product/:id", routerUniversal)
+
         app.use("/unauthorized", routerUniversalNoAuth)
 
         app.use("/login", routerLogin)
@@ -77,9 +79,9 @@
         app.use("/logout", routerLogout)
 
         app.use("/register", routerRegister)
-
+        
         app.use("/api/users", routerApiUsers)
-
+        
         app.use("/api/cart", routerApiCart)
         
         app.use("/api/orders", routerApiOrders)

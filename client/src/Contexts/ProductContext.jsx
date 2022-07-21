@@ -40,7 +40,6 @@ export const ProductContextProvider = ({ children }) => {
         axios.delete(`http://localhost:8080/api/products/${prodId}`)
             .then((res) => {
                 setProducts(products.filter(prod => prod._id !== prodId))
-                alert("Product deleted successfully!")
             })
             .catch(error => {
                 let message;
