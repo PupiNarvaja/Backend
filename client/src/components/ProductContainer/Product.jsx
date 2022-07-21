@@ -5,8 +5,8 @@ const Product = ({ prod }) => {
     const { addToCart }  = useCartContext()
 
     return (
-        <div className="m-10">
-            <div className="w-64 h-80 mb-4 flex items-center overflow-hidden">
+        <div className="m-6 sm:m-10">
+            <div className="w-36 h-56 sm:w-64 sm:h-80 mb-4 flex items-center overflow-hidden">
                 <img src={prod.img}/>
             </div>
             <p className="text-center archivo">{prod.title}</p>

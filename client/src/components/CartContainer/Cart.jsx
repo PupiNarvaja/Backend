@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import React, { useEffect } from "react"
 import { useCartContext } from "../../Contexts/CartContext"
 import CartList from "./CartList"
@@ -42,22 +43,31 @@ const Cart = () => {
                                 </tbody>
                             </table>
                         </div>
-                    <div className="flex justify-between font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
-                        <div>
-                            <p>Total</p>
-                            <p className="text-blue-600">ARS <span x-text="total.toFixed(2)"></span></p>
+                    {
+                        cartList.length == 0
+                            ?
+                        <div className="text-center p-6">
+                            <p>It looks like you haven't added any products to your cart yet!</p>
+                            <Link to="/"><button>Go back to homepage</button></Link>
                         </div>
-                        <form action="/api/orders" method="POST">
-                            <button type="submit">
-                                Place my order
-                            </button>
-                        </form>
-                    </div>
-        
+                            :
+                        <div className="flex justify-between font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
+                            <div>
+                                <p>Total</p>
+                                <p className="text-blue-600">ARS <span x-text="total.toFixed(2)"></span></p>
+                            </div>
+                            <form action="/api/orders" method="POST">
+                                <button type="submit">
+                                    Place my order
+                                </button>
+                            </form>
+                        </div>
+                    }
                     <div className="flex justify-end">
                         
                         <input type="text" className="border border-black bg-gray-50" x-model="selected" />
                     </div>
+                   
                 </div>
             </div>
         </section>
@@ -65,18 +75,3 @@ const Cart = () => {
 }
 
 export default Cart
-
-
-// const [loading, setLoading] = useState(true)
-// const [products, setProducts] = useState([])
-
-// const cookies = cookieParser()
-
-// useEffect(() => {
-//     fetch("/api/cart", {
-//         headers: { authorization: `Bearer ${cookies.token}` }
-//     })
-//     .then(res => res.json())
-//     .then(data => setProducts(data))
-//     .finally(setLoading(false))
-// }, [])
