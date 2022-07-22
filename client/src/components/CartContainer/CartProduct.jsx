@@ -1,10 +1,12 @@
 import { useCartContext } from "../../Contexts/CartContext"
 
 const CartProduct = ({ prod }) => {
-    const { deleteProduct }  = useCartContext()
+    const { modifyQuantity, deleteProduct }  = useCartContext()
+
+    let moneyFormat = new Intl.NumberFormat('de-DE')
 
     return (
-        <tr id="${prod.id}">
+        <tr>
             <td className="p-2">
                 <div className="w-36 h-40 mb-4 flex items-center overflow-hidden">
                     <img src={prod.img} className="max-w-16" />
@@ -18,14 +20,19 @@ const CartProduct = ({ prod }) => {
             </td>
             <td className="p-2">
                 <div className="text-left">
-                    <button type="button" className="text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">-</button>
+                    {
+                        prod.quantity > 1 ? 
+                            <button type="button" onClick={() => modifyQuantity("subtraction", `${prod.id}`)} className="modifyQuantityBtn text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">-</button>
+                            :
+                            <div className="w-6 h-6 inline-block"></div>
+                    }
                     {prod.quantity}
-                    <button type="button" className="text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">+</button>
+                    <button type="button" onClick={() => modifyQuantity("addition", `${prod.id}`)} className="modifyQuantityBtn text-xl leading-[0px] w-6 h-6 rounded-full hover:text-blue-600 hover:bg-gray-100">+</button>
                 </div>
             </td>
             <td className="p-2">
                 <div className="text-left font-medium text-green-500">
-                    ${prod.quantity * prod.price}
+                    ${moneyFormat.format(prod.quantity * prod.price)}
                 </div>
             </td>
             <td className="p-2">

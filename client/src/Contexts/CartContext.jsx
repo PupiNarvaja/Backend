@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react"
 import cookieParser from "../Utils/CookieParser"
+import axios from "axios"
 
 export const CartContext = createContext([])
 
@@ -40,14 +41,32 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
-   
+    const modifyQuantity = async (operation, prodId) => {
+        const modifyQuantityBtn = document.getElementsByClassName("modifyQuantityBtn")
+        
+        for (let i = 0; i < modifyQuantityBtn.length; i++) {
+            modifyQuantityBtn[i].disabled = true
+            modifyQuantityBtn[i].style.cursor = "not-allowed"
+        }
+
+        await axios.put(`/api/cart/${operation}/${prodId}`, {
+            headers: { authorization: `Bearer ${cookies.token}` }
+        })
+        .then(() => updateCart())
+
+        for (let i = 0; i < modifyQuantityBtn.length; i++) {
+            modifyQuantityBtn[i].disabled = false
+            modifyQuantityBtn[i].style.cursor = "pointer"
+        }
+    }
 
     return (
         <CartContext.Provider value={{
             updateCart,
             cartList,
             addToCart,
-            deleteProduct
+            deleteProduct,
+            modifyQuantity
         }}>
             { children }
         </CartContext.Provider>

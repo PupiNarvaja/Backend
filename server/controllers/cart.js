@@ -63,10 +63,25 @@ const deleteProduct = async (req, res) => {
 //     }
 // }
 
+const modifyQuantity = async (req, res) => {
+    const { id } = req.user
+    const { operation, prodId } = req.params
+
+    try {
+        const product = await cartModel.modifyQuantity(id, prodId, operation)
+        const [data, status] = product
+        res.status(status).send(data)
+    } catch (error) {
+        logger.error(error)
+        res.status(500).send({ error: error.message })
+    }
+}
+
 module.exports = {
     // createCart,
     addProduct,
     getCartProducts,
     deleteProduct,
-    // deleteCart
+    // deleteCart,
+    modifyQuantity,
 }

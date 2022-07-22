@@ -1,16 +1,24 @@
 import { Link } from "react-router-dom"
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useCartContext } from "../../Contexts/CartContext"
 import CartList from "./CartList"
 
 const Cart = () => {
+    const [total, setTotal] = useState(0)
 
     const { updateCart, cartList } = useCartContext()
 
     useEffect(() => {
         updateCart()
     }, [])
+
+    useEffect(() => {
+        const totalToPay = cartList.reduce((prev, curr) => prev + curr.quantity * curr.price, 0)
+        let moneyFormat = new Intl.NumberFormat('de-DE')
+        return setTotal(moneyFormat.format(totalToPay))
+    }, [cartList])
     
+
     return (
         <section className="antialiased text-gray-600 px-4 mt-[150px] mb-[400px]">
             <div className="flex">
@@ -24,7 +32,7 @@ const Cart = () => {
                                     <tr>
                                         <th></th>
                                         <th className="p-2">
-                                            <div className="font-semibold text-left">Product Name</div>
+                                            <div className="font-semibold text-left">Product Details</div>
                                         </th>
                                         <th className="p-2">
                                             <div className="font-semibold text-left">Quantity</div>
@@ -53,8 +61,8 @@ const Cart = () => {
                             :
                         <div className="flex justify-between font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
                             <div>
-                                <p>Total</p>
-                                <p className="text-blue-600">ARS <span x-text="total.toFixed(2)"></span></p>
+                                <p>Total:</p>
+                                <p className="text-blue-600">ARS <span>${total}</span></p>
                             </div>
                             <form action="/api/orders" method="POST">
                                 <button type="submit">
@@ -63,11 +71,6 @@ const Cart = () => {
                             </form>
                         </div>
                     }
-                    <div className="flex justify-end">
-                        
-                        <input type="text" className="border border-black bg-gray-50" x-model="selected" />
-                    </div>
-                   
                 </div>
             </div>
         </section>

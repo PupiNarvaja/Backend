@@ -87,9 +87,6 @@ const ProductDetails = () => {
                     </svg>
                     </a>
                 </span>
-                <div>
-                    <p>FALTA EL COUNTER DE UNIDADES</p>
-                </div>
                 </div>
                 <p className="leading-relaxed">{product.description}</p>
                 <div className="flex">

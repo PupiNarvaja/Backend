@@ -120,6 +120,39 @@ class CartModel {
         data = { status: "success", description: "Cart deleted." }
         return [data, status]
     }
+
+    async modifyQuantity(id, prodId, operation) {
+        let data, status;
+
+        const cart = await this.model.findOne({ userId: id }).lean()
+        const prodIndex = cart.products.findIndex(prod => prod.id == prodId)
+
+        if (prodIndex === -1) {
+            status = 404
+            data = { error: -1, description: "Product not found." }
+            return [data, status]
+        }
+
+        const [product] = await ProductsModel.getProduct(prodId)
+
+        if (operation === "addition") {
+            cart.products[prodIndex].quantity += 1
+            await this.model.updateOne({ userId: id }, cart)
+
+            let status = 201
+            let data = { description: `One unit added. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
+            return [data, status]
+        }
+
+        if (operation === "subtraction") {
+            cart.products[prodIndex].quantity -= 1
+            await this.model.updateOne({ userId: id }, cart)
+            
+            let status = 201
+            let data = { description: `One unit subtracted. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
+            return [data, status]
+        }
+    }
 }
 
 module.exports = new CartModel()
