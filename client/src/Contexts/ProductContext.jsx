@@ -27,7 +27,7 @@ export const ProductContextProvider = ({ children }) => {
     const [createOrUpdate, setCreateOrUpdate] = useState("create")
     
     const updateItems = async () => {
-        await fetch("http://localhost:8080/api/products", {
+        await fetch("/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
@@ -37,7 +37,7 @@ export const ProductContextProvider = ({ children }) => {
     }
 
     const deleteProduct = (prodId) => {
-        axios.delete(`http://localhost:8080/api/products/${prodId}`)
+        axios.delete(`/api/products/${prodId}`)
             .then((res) => {
                 setProducts(products.filter(prod => prod._id !== prodId))
             })
@@ -71,7 +71,7 @@ export const ProductContextProvider = ({ children }) => {
         if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
             alert("Hay campos vacios!")
         } else {
-            axios.post("http://localhost:8080/api/products", newProduct)
+            axios.post("/api/products", newProduct)
                 .then(({ data }) => {
                     products.push(data)
                     setProducts(products)
@@ -88,7 +88,7 @@ export const ProductContextProvider = ({ children }) => {
     }
 
     const updateProduct = async (prodId) => {
-        await axios.put(`http://localhost:8080/api/products/${prodId}`, individualProduct)
+        await axios.put(`/api/products/${prodId}`, individualProduct)
         .then(res => setIndividualProduct(emptyProduct))
         .catch(e => console.log(e))
 
