@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const isAuthenticated = require("../../middlewares/isAuthenticated")
-const UserController = require("../../controllers/user")
+const UserController = require("../../controllers/user.controller")
 
 // "/api/users"
 router.use(isAuthenticated)

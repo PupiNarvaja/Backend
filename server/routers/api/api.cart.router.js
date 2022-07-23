@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const cartController = require("../../controllers/cart")
+const cartController = require("../../controllers/cart.controller")
 const isAuthenticated = require("../../middlewares/isAuthenticated")
 
 //  "/api/cart"
