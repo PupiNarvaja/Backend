@@ -1,4 +1,12 @@
+import { useState } from "react"
+
 const Register = () => {
+    const [phonePrefix, setPhonePrefix] = useState(549)
+
+    const selectHandler = (e) => {
+        setPhonePrefix(e.target.value)
+    }
+
     return (
     //     <style>
     //     #age::-webkit-outer-spin-button,
@@ -8,6 +16,8 @@ const Register = () => {
     //     }
     // </style>
 
+
+        
         <div className="max-w-screen-xl px-4 pt-36 mx-auto sm:px-6 lg:px-8">
             <div className="max-w-lg mx-auto">
                 <h1 className="text-2xl font-bold text-center text-indigo-600 dark:text-indigo-500 sm:text-3xl">Welcome to This</h1>
@@ -106,12 +116,24 @@ const Register = () => {
                         <label htmlFor="tel" className="text-sm font-medium dark:text-gray-200">Phone</label>
 
                         <div className="relative mt-1">
+                            <select value={phonePrefix} onChange={selectHandler}>
+                                <option value="549">🇦🇷</option>
+                                <option value="52">🇲🇽</option>
+                                <option value="56">🇨🇱</option>
+                                <option value="55">🇧🇷</option>
+                                <option value="57">🇨🇴</option>
+                                <option value="58">🇻🇪</option>
+                                <option value="34">🇪🇸</option>
+                                <option value="1">🇺🇸</option>
+                            </select>
                             <input
                                 name="phone"
                                 type="tel"
                                 id="phone"
                                 className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white"
                                 placeholder="Enter phone"
+                                value={phonePrefix}
+                                onChange={(e) => setPhonePrefix(e.value)}
                             />
                         </div>
                     </div>

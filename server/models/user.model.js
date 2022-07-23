@@ -9,7 +9,7 @@ class UserModel extends BaseModel {
             firstname: String,
             lastname: String,
             password: String,
-            age: String,
+            age: Number,
             address: String,
             phone: Number,
             profile: String,
