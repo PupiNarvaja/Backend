@@ -17,6 +17,11 @@ module.exports = (async () => {
     const initializePassport = require("./passport/local")
     const logger = require('./log')
 
+    const { Server } = require("socket.io") 
+    const io = new Server(server)
+    const chat = require("./chat")
+    const chatModel = require("./models/chat.model")
+
     const routerApiCart = require("./routers/api/api.cart.router")
     const routerApiUsers = require("./routers/api/api.users.router")
     const routerApiProducts = require("./routers/api/api.products.router")
@@ -60,6 +65,22 @@ module.exports = (async () => {
         app.use("/assets/", express.static(path.join(__dirname, "../client/dist/assets")))
         app.use("/static/", express.static(path.join(__dirname, "../client/dist")))
 
+        io.on("connection", async (socket) => {
+            console.log("A user connected.")
+
+            const result = await chatModel.findMessage()
+            socket.emit("output-messages", result)
+        
+            socket.on("chat", async (msg) => {
+                await chatModel.saveMessage(msg)
+
+                io.emit("chat", msg)
+            })
+        })
+
+        app.get("/chat", (req, res) => {
+            res.sendFile(`${__dirname}/views/index.html`)
+        })
 
         app.use("/", routerUniversal)
 
