@@ -42,6 +42,7 @@ const Home = () => {
             </div>
             <div className="m-10">
                 <h3 className="text-3xl inline-block">Filters:</h3>
+                <button type="button" onClick={() => getProductsFiltered("")} className="text-2xl mx-6 mb-6">Default</button>
                 <button type="button" onClick={() => getProductsFiltered("orderBy=price&order=1")} className="text-2xl mx-6 mb-6">Lower price first</button>
                 <button type="button" onClick={() => getProductsFiltered("orderBy=price&order=-1")} className="text-2xl mx-6 mb-6">higher price first</button>
             </div>
