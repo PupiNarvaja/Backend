@@ -34,6 +34,7 @@ module.exports = (async () => {
     const routerLogin = require("./routers/login.router")
     const routerLogout = require("./routers/logout.router")
     const routerRegister = require("./routers/register.router")
+    const routerChat = require("./routers/chat.router")
     const routerAdmin = require("./routers/adminRoutes/admin.router")
 
     const { URI_CLOUD_CONNECTION } = require("./config")
@@ -78,9 +79,7 @@ module.exports = (async () => {
             })
         })
 
-        app.get("/chat", (req, res) => {
-            res.sendFile(`${__dirname}/views/index.html`)
-        })
+        app.use("/chat", routerChat)
 
         app.use("/", routerUniversal)
 

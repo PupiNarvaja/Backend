@@ -13,6 +13,6 @@ router.delete("/:prodId", cartController.deleteProduct) // Elimina un producto d
 
 router.put("/:operation/:prodId", cartController.modifyQuantity) // Modifica la cantidad de un producto dentro del carrito.
 
-//router.delete("/:id", cartController.deleteCart) // Elimina un cart por completo.
+router.delete("/:id", cartController.deleteCart) // Elimina un cart por completo.
 
 module.exports = router
