@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
+import { useCartContext } from "../../Contexts/CartContext"
 import "./HomeContainer.css"
 
 const HomeContainer = ({ props }) => {
     const [menu, setMenu] = useState(false)
+    
+    const { cartCounter } = useCartContext()
 
     const handleToggle = () => {
         setMenu(prev => !prev)
@@ -26,10 +29,10 @@ const HomeContainer = ({ props }) => {
                         </ul>
                     </nav>
                     <div className='social--container'>
-                    <a href='https://www.instagram.com/swypecreativo/' target="_blank" rel='noreferrer noopener' aria-label='Instagram'>
+                    <a href='#' target="_blank" rel='noreferrer noopener' aria-label='Instagram'>
                         Instagran
                     </a>
-                    <a href='https://www.facebook.com/swypeestudiocreativo/' target="_blank" rel='noreferrer noopener' aria-label='Facebook'>
+                    <a href='#' target="_blank" rel='noreferrer noopener' aria-label='Facebook'>
                         feibu
                     </a>
                     </div>
@@ -37,7 +40,10 @@ const HomeContainer = ({ props }) => {
                 <Link to="/" className="logo-link z-40">
                     LOGO
                 </Link>
-                <div className="flex items-center"><Link to="/cart"><img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/28/000000/external-shopping-bag-interface-kiranshastry-lineal-kiranshastry.png"/></Link></div>
+                <div className="flex items-center"><Link to="/cart">
+                    <span id="cartCounter">{cartCounter}</span>
+                    <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/28/000000/external-shopping-bag-interface-kiranshastry-lineal-kiranshastry.png"/></Link>
+                </div>
             </header>
             { props }
         </>

@@ -9,16 +9,24 @@ export const useCartContext = () => useContext(CartContext)
 export const CartContextProvider = ({ children }) => {
     
     const [cartList, setcartList] = useState([])
+    const [cartCounter, setCartCounter] = useState(0)
     const cookies = cookieParser()
     
-    const updateCart = () => {
-        fetch("/api/cart", {
+    const updateCart = async () => {
+        await fetch("/api/cart", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
         })
         .then((res) => res.json())
         .then((data) => setcartList(data))
+        // .finally(setCartCounter(cartList.length))
+        // .finally(console.log(cartList))
+
+        // cartList.forEach(prod => {
+        //     console.log(prod.quantity);
+        //     return setCartCounter(0 + prod.quantity)
+        // })
     }
 
     const deleteProduct = (prodId) => {
@@ -66,7 +74,8 @@ export const CartContextProvider = ({ children }) => {
             cartList,
             addToCart,
             deleteProduct,
-            modifyQuantity
+            modifyQuantity,
+            cartCounter
         }}>
             { children }
         </CartContext.Provider>

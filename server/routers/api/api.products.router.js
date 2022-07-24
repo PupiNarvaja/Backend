@@ -8,7 +8,7 @@ router.use(isAuthenticated)
 
 router.get("/", productController.getAllProducts) // Obtiene todos los productos existentes.
 
-router.get("/:category", productController.getProductsByCategory) // Obtiene todos los productos existentes de determinada categoría.
+router.get("/category/:category", productController.getProductsByCategory) // Obtiene todos los productos existentes de determinada categoría.
 
 router.get("/:id", productController.getProduct) // Obtiene un producto determinado.
 
