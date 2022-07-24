@@ -34,6 +34,7 @@ class CartModel {
             description: product.description,
             price: product.price,
             code: product.code,
+            category: product.category,
             timestamp: product.timestamp
         }
 

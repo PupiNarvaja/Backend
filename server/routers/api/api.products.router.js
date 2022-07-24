@@ -4,14 +4,18 @@ const isAuthenticated = require("../../middlewares/isAuthenticated")
 const productController = require("../../controllers/products.controller")
 
 // "/api/products"
-router.get("/", isAuthenticated, productController.getAllProducts) // Obtiene todos los productos existentes.
+router.use(isAuthenticated)
 
-router.get("/:id", isAuthenticated, productController.getProduct) // Obtiene un producto determinado.
+router.get("/", productController.getAllProducts) // Obtiene todos los productos existentes.
 
-router.post("/", isAuthenticated, isAdmin, productController.createProduct) // Agrega un nuevo producto.
+router.get("/:category", productController.getProductsByCategory) // Obtiene todos los productos existentes de determinada categoría.
 
-router.put("/:id", isAuthenticated, isAdmin, productController.updateProduct) // Modifica un producto existente.
+router.get("/:id", productController.getProduct) // Obtiene un producto determinado.
 
-router.delete("/:id", isAuthenticated, isAdmin, productController.deleteProduct) // Elimina un producto.
+router.post("/", isAdmin, productController.createProduct) // Agrega un nuevo producto.
+
+router.put("/:id", isAdmin, productController.updateProduct) // Modifica un producto existente.
+
+router.delete("/:id", isAdmin, productController.deleteProduct) // Elimina un producto.
 
 module.exports = router

@@ -14,6 +14,8 @@ const AdminUpdateProduct = () => {
                 <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="description" type="text" name="description" value={individualProduct.description} onChange={handleChange} />
                 <label htmlFor="code" className="text-sm font-medium dark:text-gray-200">Code</label>
                 <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="code" type="text" name="code" value={individualProduct.code} onChange={handleChange} />
+                <label htmlFor="category" className="text-sm font-medium dark:text-gray-200">Category</label>
+                <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="category" type="text" name="category" value={individualProduct.category} onChange={handleChange} />
                 <label htmlFor="img" className="text-sm font-medium dark:text-gray-200">Image</label>
                 <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="img" type="text" name="img" value={individualProduct.img} onChange={handleChange} />
                 <label htmlFor="price" className="text-sm font-medium dark:text-gray-200">Price</label>

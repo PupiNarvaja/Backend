@@ -29,6 +29,13 @@ const AdminNewProduct = () => {
                         code: e.target.value
                     })
                 }} />
+                <label htmlFor="category" className="text-sm font-medium dark:text-gray-200">Category</label>
+                <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="category" type="text" name="category" value={newProduct.category} onChange={(e) => {
+                    setNewProduct({
+                        ...newProduct,
+                        category: e.target.value
+                    })
+                }} />
                 <label htmlFor="img" className="text-sm font-medium dark:text-gray-200">Image</label>
                 <input className="w-full p-4 pr-12 text-sm border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-[0px] dark:text-white" placeholder="img" type="text" name="img" value={newProduct.img} onChange={(e) => {
                     setNewProduct({

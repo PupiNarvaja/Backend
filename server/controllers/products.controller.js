@@ -5,9 +5,23 @@ const productModel = ModelFactory.getModel("product")
 
 const getAllProducts = async (req, res) => {
     const { orderBy, order, search } = req.query
+    logger.info(`Order by: ${orderBy}, order: ${order}, search: ${search}`)
 
     try {
       const products = await productModel.getAllProducts(orderBy, order, search)
+      res.status(200).send(products)
+    } catch (error) {
+      logger.error(error)
+      res.status(500).send({ error: error.message })
+    }
+}
+
+const getProductsByCategory = async (req, res) => {
+    const { category } = req.params
+    logger.info(`Requested category: ${category}`)
+
+    try {
+      const products = await productModel.getProductsByCategory(category)
       res.status(200).send(products)
     } catch (error) {
       logger.error(error)
@@ -67,6 +81,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
     getAllProducts,
+    getProductsByCategory,
     getProduct,
     createProduct,
     updateProduct,

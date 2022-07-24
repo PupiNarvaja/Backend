@@ -8,6 +8,7 @@ class ProductModel {
             code: String,
             img: String,
             price: Number,
+            category: String,
             stock: { type: Number, default: 0 },
             timestamp: { type: Number, default: Date.now(), format: '%Y-%m-%d' }
         })
@@ -24,12 +25,17 @@ class ProductModel {
             title: 1,
             description: 1,
             code: 1,
+            category: 1,
             img: 1,
             price: 1,
             stock: 1,
             id: 1,
             timestamp: 1
         }).sort(sort)
+    }
+
+    async getProductsByCategory(category) {
+        return await this.model.find({ category })
     }
 
     async getProduct(id) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import cookieParser from "../Utils/CookieParser"
 import ProductList from "./ProductContainer/ProductList"
+import axios from "axios"
 
 const Home = () => {
     const [loading, setLoading] = useState(true)
@@ -9,15 +10,28 @@ const Home = () => {
     const cookies = cookieParser()
 
     useEffect(() => {
-        fetch("/api/products", {
+        axios.get("/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
         })
-        .then((res) => res.json())
-        .then((data) => setProducts(data))
+        .then(({ data }) => setProducts(data))
         .finally(setLoading(false))
     }, [])
+
+    const getProductsFiltered = async (params) => {
+        setLoading(true)
+        await axios.get(`/api/products?${params}`)
+        .then(({ data }) => setProducts(data))
+        .finally(setLoading(false))
+    }
+
+    const getByCategory = async (category) => {
+        setLoading(true)
+        await axios.get(`http://localhost:8080/api/products/${category}`)
+        .then(({ data }) => setProducts(data))
+        .finally(setLoading(false))
+    }
 
 
     return (
@@ -25,6 +39,16 @@ const Home = () => {
             <div className="m-10">
                 <h2 className="text-3xl">Welcome, user.</h2>
                 <h3 className="text-2xl mb-6">Take a look</h3>
+            </div>
+            <div className="m-10">
+                <h3 className="text-3xl inline-block">Filters:</h3>
+                <button type="button" onClick={() => getProductsFiltered("orderBy=price&order=1")} className="text-2xl mx-6 mb-6">Lower price first</button>
+                <button type="button" onClick={() => getProductsFiltered("orderBy=price&order=-1")} className="text-2xl mx-6 mb-6">higher price first</button>
+            </div>
+            <div className="m-10">
+                <h3 className="text-3xl inline-block">Category:</h3>
+                <button type="button" onClick={() => getByCategory("shirts")} className="text-2xl mx-6 mb-6">Shirts</button>
+                <button type="button" onClick={() => getByCategory("jackets")} className="text-2xl mx-6 mb-6">Jackets</button>
             </div>
             <div className="max-w-[1500px] justify-center sm:justify-around mx-auto flex flex-row flex-wrap">
                 { loading ? <button disabled type="button" className="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">

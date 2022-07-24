@@ -12,6 +12,7 @@ export const ProductContextProvider = ({ children }) => {
         title: "",
         description: "",
         code: "",
+        category: "",
         img: "",
         price: "",
         stock: "",
@@ -68,7 +69,7 @@ export const ProductContextProvider = ({ children }) => {
 
     const createNewProduct = (e)  => {
         e.preventDefault()
-        if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
+        if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.category === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
             alert("Hay campos vacios!")
         } else {
             axios.post("/api/products", newProduct)
