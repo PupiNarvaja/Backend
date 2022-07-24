@@ -1,4 +1,4 @@
-(async () => {
+module.exports = (async () => {
     // En orden alfabetico y primero librerias externas...
     require('dotenv').config()
     const cookieParser = require("cookie-parser")
@@ -6,12 +6,14 @@
     const session = require("express-session")
     const passport = require("passport")
     const path = require("path")
+    const cors = require("cors")
     
     const mongoose = require("mongoose")
     const mongoStore = require("connect-mongo")
     
     // ...luego nuestros propios documentos.
     const app = express()
+    const server = require("http").Server(app)
     const initializePassport = require("./passport/local")
     const logger = require('./log')
 
@@ -29,8 +31,7 @@
     const routerRegister = require("./routers/register.router")
     const routerAdmin = require("./routers/adminRoutes/admin.router")
 
-    const { URI_CLOUD_CONNECTION, PORT } = require("./config")
-    const cors = require("cors")
+    const { URI_CLOUD_CONNECTION } = require("./config")
 
     try {
         await mongoose.connect(URI_CLOUD_CONNECTION)
@@ -92,9 +93,9 @@
 
         //app.use(router404)
 
-        app.listen(PORT, () => logger.info("🚀 Server online."))
-
     } catch (error) {
         logger.error("Error on mongo.", error)
     }
+
+    return server
 })()

@@ -8,7 +8,7 @@ const OPTIONS = process.env.OPTIONS
 const URI_CLOUD_CONNECTION = `${SCHEMA}://${USER}:${PASSWORD}@${HOSTNAME}/${DATABASE}?${OPTIONS}`
 
 // Development/production envs 
-const PORT = process.argv[2] || process.env.PORT
+const PORT = process.argv[3] || process.env.PORT
 const NODE_ENV = process.env.NODE_ENV || "production"
 
 // Email
