@@ -6,6 +6,7 @@ class OrderModel extends BaseModel {
     constructor() {
         const schema = new Schema({
             userId: String,
+            email: String,
             total: { type: Number, default: 0 },
             created: { type: Date, default: Date.now },
             products: { type: Array, default: [] },
@@ -21,15 +22,17 @@ class OrderModel extends BaseModel {
         return data.map((order) => ({
             id:order._id.toString(),
             userId: order.userId,
+            email: order.email,
             total: order.total,
             created: moment(order.created).format("DD-MM-YYYY HH:mm"),
             sent: order.sent ? "Yes" : "No"
         }))
     }
 
-    async newOrder(orderObj, products) {
-        await this.model.create({
+    async newOrder(orderObj, products, email) {
+        return await this.model.create({
             ...orderObj,
+            email: email,
             created: moment().format(),
             products: products,
             sent: false

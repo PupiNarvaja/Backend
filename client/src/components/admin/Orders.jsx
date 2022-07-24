@@ -34,6 +34,9 @@ const Orders = () => {
                                         <div className="font-semibold text-left">User</div>
                                     </th>
                                     <th className="p-2">
+                                        <div className="font-semibold text-left">Order id</div>
+                                    </th>
+                                    <th className="p-2">
                                         <div className="font-semibold text-left">Date</div>
                                     </th>
                                     <th className="p-2">

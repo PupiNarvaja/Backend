@@ -38,20 +38,24 @@ const generateOrder = async (req, res) => {
             total
         }
 
-        await orderModel.newOrder(order, productsDetails)
+        const newOrder = await orderModel.newOrder(order, productsDetails, email)
         await cartModel.emptyCart(id)
     
-        const productsLi = products.map(prod => `<li>${prod.title}</li>`)
+        const productsLi = products.map(prod => `<li>${prod.title} x${prod.quantity} subtotal: $${prod.price}</li>`)
         const template = `
         <h1 style="color: blue;">Tu pedido está siendo procesado.</h1>
+        <h3>Your order's id: ${newOrder._id}</h3>
         <p>Aqui tus productos:</p>
         <ul>
             ${productsLi.join(" ")}
+            <br>
+            <li>Total: $${order.total}</li>
         </ul>
         `
         mailSender.send(template, email)
         context.sent = true
 
+        logger.info(`Generating order for user with id: ${id}, email: ${email}.`)
         return res.redirect("/order")
     } catch (error) {
         logger.error(`Error at generating your order: ${error}`)
@@ -79,7 +83,7 @@ const sendOrder = async (req, res) => {
                 <ul>
                     ${productsLi.join(" ")}
                     <br>
-                    <li>Total: $${order.total}</li>
+                    <li>Your total is: $${order.total}</li>
                 </ul>
                 `
         mailSender.send(template, user.email)

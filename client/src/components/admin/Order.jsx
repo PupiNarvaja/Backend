@@ -25,8 +25,10 @@ const Order = ({ order }) => {
     return (
         <tr>
             <td className="p-2">
-                <h4>{order._id}</h4>
-                <h4>{order.userId}</h4>
+                <h4>{order.email}</h4>
+            </td>
+            <td className="p-2">
+                <h4>{order.id}</h4>
             </td>
             <td className="p-2">
                 <h4>{order.created}</h4>
