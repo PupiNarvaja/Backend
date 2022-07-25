@@ -28,7 +28,7 @@ const Home = () => {
 
     const getByCategory = async (category) => {
         setLoading(true)
-        await axios.get(`http://localhost:8080/api/products/category/${category}`)
+        await axios.get(`/api/products/category/${category}`)
         .then(({ data }) => setProducts(data))
         .finally(setLoading(false))
     }

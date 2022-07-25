@@ -89,6 +89,7 @@ const sendOrder = async (req, res) => {
         mailSender.send(template, user.email)
 
         twilioSender.sendWhatsapp(user.phone)
+        return res.send({ status: "Success!", description: `Order ${orderId} set as sent.` })
     } catch (error) {
         logger.error("Error at sending product: ", error)
     }

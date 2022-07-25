@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react"
 import cookieParser from "../Utils/CookieParser"
+import { toast } from 'react-toastify';
 import axios from "axios"
 
 export const CartContext = createContext([])
@@ -11,42 +12,46 @@ export const CartContextProvider = ({ children }) => {
     const [cartList, setcartList] = useState([])
     const [cartCounter, setCartCounter] = useState(0)
     const cookies = cookieParser()
+
+    const toastifyConfig = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    }
     
     const updateCart = async () => {
-        await fetch("/api/cart", {
+        await axios.get("/api/cart", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
         })
-        .then((res) => res.json())
-        .then((data) => setcartList(data))
-        // .finally(setCartCounter(cartList.length))
-        // .finally(console.log(cartList))
-
-        // cartList.forEach(prod => {
-        //     console.log(prod.quantity);
-        //     return setCartCounter(0 + prod.quantity)
-        // })
+        .then(({ data }) => setcartList(data))
+        .catch(e => console.log(e))
     }
 
-    const deleteProduct = (prodId) => {
-        fetch(`/api/cart/${prodId}`, {
-            method: 'DELETE'
+    const deleteProduct = async (prodId) => {
+        await axios.delete(`/api/cart/${prodId}`)
+        .then(({ data }) => toast.success(`${data.status}. ${data.description}`, toastifyConfig))
+        .then(() => setcartList(cartList.filter(prod => prod.id !== prodId)))
+        .catch(error => {
+            const res = error.response.data
+            toast.error(`${res.status}. ${res.description}`, toastifyConfig)
         })
-        .catch(e => console.log(e))
-
-        setcartList(cartList.filter(prod => prod.id !== prodId))
     }
 
     const addToCart = async (prodId)  => {
-        const res = await fetch(`/api/cart/${prodId}`, {
-            headers: { authorization: `Bearer ${cookies.token}` },
-            method: 'POST'
+        await axios.post(`/api/cart/${prodId}`, {
+            headers: { authorization: `Bearer ${cookies.token}` }
         })
-    
-        if (res.status !== 200) {
-            return
-        }
+        .then(({ data }) => toast.success(`${data.status}. ${data.description}`, toastifyConfig))
+        .catch(error => {
+            const res = error.response.data
+            toast.error(`${res.status}. ${res.description}`, toastifyConfig)
+        })
     }
 
     const modifyQuantity = async (operation, prodId) => {
@@ -60,7 +65,12 @@ export const CartContextProvider = ({ children }) => {
         await axios.put(`/api/cart/${operation}/${prodId}`, {
             headers: { authorization: `Bearer ${cookies.token}` }
         })
-        .then(() => updateCart())
+        .then(({ data }) => toast.success(`${data.status}. ${data.description}`, toastifyConfig))
+        .finally(() => updateCart())
+        .catch(error => {
+            const res = error.response.data
+            toast.error(`${res.status}. ${res.description}`, toastifyConfig)
+        })
 
         for (let i = 0; i < modifyQuantityBtn.length; i++) {
             modifyQuantityBtn[i].disabled = false

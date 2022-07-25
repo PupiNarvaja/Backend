@@ -19,8 +19,6 @@ const HomeContainer = ({ props }) => {
                 <div className={`${menu ? "showMenu" : ""} nav--container`}>
                     <nav id='navbar'>
                         <ul className="nav__ul">
-                            <li><Link to="/" onClick={handleToggle}>Shirts</Link></li>
-                            <li><Link to="/" onClick={handleToggle}>Jackets</Link></li>
                             <li><Link to="/profile" onClick={handleToggle}>My profile</Link></li>
                             <li><a href="/admin" onClick={handleToggle}>Admin</a></li> {/* Se utiliza <a> para que recargue la pagina y asi verifique si es admin o no. */}
                             <form action="/logout" method="POST">
@@ -30,10 +28,10 @@ const HomeContainer = ({ props }) => {
                     </nav>
                     <div className='social--container'>
                     <a href='#' target="_blank" rel='noreferrer noopener' aria-label='Instagram'>
-                        Instagran
+                        Instagram
                     </a>
                     <a href='#' target="_blank" rel='noreferrer noopener' aria-label='Facebook'>
-                        feibu
+                        Facebook
                     </a>
                     </div>
                 </div>

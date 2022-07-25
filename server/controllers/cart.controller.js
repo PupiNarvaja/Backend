@@ -7,8 +7,7 @@ const addProduct = async (req, res) => {
     const { id } = req.user
     const { prodId } = req.params
     try {
-        const product = await cartModel.addProduct(id, prodId)
-        const [data, status] = product
+        const [data, status] = await cartModel.addProduct(id, prodId)
         res.status(status).send(data)
     } catch (error) {
         logger.error(error)
@@ -20,8 +19,7 @@ const getCartProducts = async (req, res) => {
     const { id } = req.user
 
     try {
-        const products = await cartModel.getCartProducts(id)
-        const [data, status] = products
+        const [data, status] = await cartModel.getCartProducts(id)
         res.status(status).send(data)
     } catch (error) {
        logger.error(error)
@@ -33,8 +31,7 @@ const deleteProduct = async (req, res) => {
     const { id } = req.user
     const { prodId } = req.params   
     try {
-        const product = await cartModel.deleteProduct(id, prodId)
-        const [data, status] = product
+        const [data, status] = await cartModel.deleteProduct(id, prodId)
         res.status(status).send(data)
     } catch (error) {
         logger.error(error)
@@ -58,8 +55,7 @@ const modifyQuantity = async (req, res) => {
     const { operation, prodId } = req.params
 
     try {
-        const product = await cartModel.modifyQuantity(id, prodId, operation)
-        const [data, status] = product
+        const [data, status] = await cartModel.modifyQuantity(id, prodId, operation)
         res.status(status).send(data)
     } catch (error) {
         logger.error(error)

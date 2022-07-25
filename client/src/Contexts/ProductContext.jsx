@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react"
 import cookieParser from "../Utils/CookieParser"
+import { toast } from 'react-toastify';
 import axios from "axios"
 
 export const ProductContext = createContext([])
@@ -8,6 +9,16 @@ export const useProductContext = () => useContext(ProductContext)
 
 export const ProductContextProvider = ({ children }) => {
     
+    const toastifyConfig = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    }
+
     const emptyProduct = {
         title: "",
         description: "",
@@ -28,56 +39,39 @@ export const ProductContextProvider = ({ children }) => {
     const [createOrUpdate, setCreateOrUpdate] = useState("create")
     
     const updateItems = async () => {
-        await fetch("/api/products", {
+        await axios.get("/api/products", {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
         })
-        .then((res) => res.json())
-        .then((data) => setProducts(data))
+        .then(({ data }) => setProducts(data))
     }
 
-    const deleteProduct = (prodId) => {
-        axios.delete(`/api/products/${prodId}`)
-            .then((res) => {
-                setProducts(products.filter(prod => prod._id !== prodId))
-            })
+    const deleteProduct = async (prodId) => {
+        await axios.delete(`/api/products/${prodId}`)
+            .then(({ data }) => toast.success(`${data.status}. ${data.description}`, toastifyConfig))
+            .then(() => setProducts(products.filter(prod => prod._id !== prodId)))
             .catch(error => {
-                let message;
-                const status = error.response.status;
-                status == 400
-                    ? message = `An error occurred deleting product with id: ${prodId}. Code error: 400`
-                    : status == 401
-                    ? message = "Sorry. You are not authorized to do that. Code error: 401"
-                    : status == 403
-                    ? message = "Sorry. You do not have access to that resource. Code error: 403"
-                    : status == 404
-                    ? message = "Sorry, we couldn't find what you're looking for. Code error: 404"
-                    : status == 405
-                    ? message = "Sorry. Method not allowed. Code error: 405"
-                    : status == 406
-                    ? message = "Sorry. Data format not allowed. Code error: 406"
-                    : status == 409
-                    ? message = "Sorry. An error occurred trying to modify an element. Code error: 409"
-                    : status == 500
-                    ? message = "Sorry. An error occurred in our server. Code error: 500"
-                    : message = "Product deleted successfully!"
-                alert(message)
+                const res = error.response.data
+                toast.error(`${res.status}. ${res.description}`, toastifyConfig)
             })
-
     }
 
-    const createNewProduct = (e)  => {
+    const createNewProduct = async (e)  => {
         e.preventDefault()
         if (newProduct.title === "" || newProduct.description === "" || newProduct.code === "" || newProduct.category === "" || newProduct.img === "" || newProduct.price === "" || newProduct.stock === "") {
-            alert("Hay campos vacios!")
+            toast.error("There are empty fields. Please check them.", toastifyConfig)
         } else {
-            axios.post("/api/products", newProduct)
+            await axios.post("/api/products", newProduct)
                 .then(({ data }) => {
+                    toast.success(`${data.title} created successfully!`, toastifyConfig)
                     products.push(data)
                     setProducts(products)
-                    
                     setNewProduct(emptyProduct)
+                })
+                .catch(error => {
+                    const res = error.response.data
+                    toast.error(`${res.status}. ${res.description}`, toastifyConfig)
                 })
         }
     }
@@ -90,8 +84,12 @@ export const ProductContextProvider = ({ children }) => {
 
     const updateProduct = async (prodId) => {
         await axios.put(`/api/products/${prodId}`, individualProduct)
-        .then(res => setIndividualProduct(emptyProduct))
-        .catch(e => console.log(e))
+        .then(({ data }) => toast.success(`${data.title} updated successfully!`, toastifyConfig))
+        .then(() => setIndividualProduct(emptyProduct))
+        .catch(error => {
+            const res = error.response.data
+            toast.error(`${res.status}. ${res.description}`, toastifyConfig)
+        })
 
         setCreateOrUpdate("create")
         updateItems()

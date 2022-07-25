@@ -79,7 +79,6 @@
         socket.on("output-messages", (msgs) => {
             if (msgs.length) {
                 msgs.forEach((msg) => {
-                    console.log(msg)
                     let item = document.createElement("li")
                     item.textContent = msg.body
                     messages.appendChild(item)

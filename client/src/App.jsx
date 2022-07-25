@@ -14,6 +14,8 @@ import Admin from "./components/admin/admin";
 import Order from './components/Order';
 import './App.css'
 import ProductDetails from './components/ProductContainer/ProductDetails';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
   return (
@@ -78,6 +80,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <ToastContainer pauseOnFocusLoss={false}/>
     </ProductContextProvider>
     </CartContextProvider>
   )

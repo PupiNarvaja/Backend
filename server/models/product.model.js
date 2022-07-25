@@ -66,7 +66,7 @@ class ProductModel {
         const productExists = await this.model.exists({ title: prod.title })
         if (productExists) {
             status = 409
-            data = { error: 409, description: "Product already exists." }
+            data = { status: 409, description: "Product already exists." }
             return [data, status]
         }
 
@@ -98,14 +98,14 @@ class ProductModel {
         const productExists = await this.model.exists({ _id: id })
         if (!productExists) {
             status = 404
-            data = { error: 404, description: "Product does not exist." }
+            data = { status: 404, description: "Product does not exist." }
             return [data, status]
         }
 
         await this.model.findByIdAndDelete(id)
         
         status = 200
-        data = { description: "Product deleted successfully." }
+        data = { status: "Success!", description: "Product deleted successfully." }
         return [data, status]
     }
 }

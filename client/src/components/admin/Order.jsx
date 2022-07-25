@@ -1,25 +1,38 @@
 import cookieParser from "../../Utils/CookieParser"
+import { toast } from 'react-toastify';
+import axios from "axios"
 
 const Order = ({ order }) => {
 
     const cookies = cookieParser()
+    const toastifyConfig = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    }
 
     const sendOrder = (orderId, e) => {
-        fetch(`/api/orders/${orderId}`, {
-            method: "POST",
+        axios.post(`/api/orders/${orderId}`, {
             headers: {
                 authorization: `Bearer ${cookies.token}`
             }
         })
-
-        const button = e.target
-        button.disabled = true
-        button.classList.add("bg-transparent")
-        button.innerHTML = "✔️"
-
-        const parent = e.target.parentNode.parentNode.parentNode
-        const sent = parent.querySelector(".sent")
-        sent.innerText = "Yes"
+        .then((res) => {
+            toast.success("Order sent successfully!", toastifyConfig)
+            const button = e.target
+            button.disabled = true
+            button.classList.add("bg-transparent")
+            button.innerHTML = "✔️"
+    
+            const parent = e.target.parentNode.parentNode.parentNode
+            const sent = parent.querySelector(".sent")
+            sent.innerText = "Yes"
+        })
+        .catch(() => toast.error("Something went wrong a sending the order.", toastifyConfig))
     }
 
     return (

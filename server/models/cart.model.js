@@ -40,7 +40,7 @@ class CartModel {
 
         if (cart === null) {
             let status = 404
-            let data = { error: 404, description: "Requested cart does not exist." }
+            let data = { status: 404, description: "Requested cart does not exist." }
             return [data, status]
         }
 
@@ -49,18 +49,18 @@ class CartModel {
             cart.products[prodInCart].quantity += 1
             await this.model.updateOne({ userId: id }, cart)
             let status = 201
-            let data = { description: `One unit added. Total units of ${product.title} are: ${cart.products[prodInCart].quantity}.` }
+            let data = { status: "Success!", description: `One unit added. Total units of ${product.title} are: ${cart.products[prodInCart].quantity}.` }
             return [data, status]
         }
 
         if (status === 404) {
-            let data = { error: 404, description: "Requested product does not exist." }
+            let data = { status: 404, description: "Requested product does not exist." }
             return [data, status]
         }
 
         cart.products.push(newProduct)
         await this.model.updateOne({ userId: id }, cart)
-        let data = { status: "success", description: `${product.title} added successfully.` }
+        let data = { status: "Success!", description: `${product.title} added successfully.` }
         return [data, 201]
     }
 
@@ -70,7 +70,7 @@ class CartModel {
         const cart = await this.model.findOne({ userId: userId }).lean()
         if (cart === null) {
             status = 404
-            data = { error: "Requested cart does not exist." }
+            data = { status: 404, description: "Requested cart does not exist." }
             return [data, status]
         }
 
@@ -94,7 +94,7 @@ class CartModel {
 
         if (prodIndex === -1) {
             status = 404
-            data = { error: -1, description: "Product not found." }
+            data = { status: 404, description: "Product not found." }
             return [data, status]
         }
         
@@ -102,7 +102,7 @@ class CartModel {
         await this.model.updateOne({ userId: id }, cart)
 
         status = 200
-        data = { status: "success", description: "Product deleted." }
+        data = { status: "Success!", description: "Product deleted." }
         return [data, status]
     }
 
@@ -118,7 +118,7 @@ class CartModel {
         }
         await this.model.findByIdAndDelete(id)
         status = 202
-        data = { status: "success", description: "Cart deleted." }
+        data = { status: "Success!", description: "Cart deleted." }
         return [data, status]
     }
 
@@ -130,7 +130,7 @@ class CartModel {
 
         if (prodIndex === -1) {
             status = 404
-            data = { error: -1, description: "Product not found." }
+            data = { status: 404, description: "Product not found." }
             return [data, status]
         }
 
@@ -141,7 +141,7 @@ class CartModel {
             await this.model.updateOne({ userId: id }, cart)
 
             let status = 201
-            let data = { description: `One unit added. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
+            let data = { status: "Success!", description: `One unit added. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
             return [data, status]
         }
 
@@ -150,7 +150,7 @@ class CartModel {
             await this.model.updateOne({ userId: id }, cart)
             
             let status = 201
-            let data = { description: `One unit subtracted. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
+            let data = { status: "Success!", description: `One unit subtracted. Total units of ${product.title} are: ${cart.products[prodIndex].quantity}.` }
             return [data, status]
         }
     }

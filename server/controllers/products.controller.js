@@ -43,7 +43,7 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
     const { body } = req
-    logger.info(body)
+    logger.info(`New product: ${JSON.stringify(body, null, 2)}`)
 
     try {
         const [data, status] = await productModel.createProduct(body)
