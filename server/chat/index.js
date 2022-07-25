@@ -1,7 +1,9 @@
-module.exports = (socket, io) => {
-    console.log("A user connected.")
+const logger = require("../log");
 
-    socket.on("chat", (msg) => {
-        io.emit("chat", msg)
-    })
-}
+module.exports = (socket, io) => {
+  logger.info("A user connected.");
+
+  socket.on("chat", (msg) => {
+    io.emit("chat", msg);
+  });
+};

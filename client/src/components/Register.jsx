@@ -8,16 +8,6 @@ const Register = () => {
     }
 
     return (
-    //     <style>
-    //     #age::-webkit-outer-spin-button,
-    //     #age::-webkit-inner-spin-button {
-    //         -webkit-appearance: none;
-    //         margin: 0;
-    //     }
-    // </style>
-
-
-        
         <div className="max-w-screen-xl px-4 pt-36 mx-auto sm:px-6 lg:px-8">
             <div className="max-w-lg mx-auto">
                 <h1 className="text-2xl font-bold text-center text-indigo-600 dark:text-indigo-500 sm:text-3xl">Welcome to This</h1>

@@ -45,7 +45,7 @@ const generateOrder = async (req, res) => {
         const template = `
         <h1 style="color: blue;">Tu pedido está siendo procesado.</h1>
         <h3>Your order's id: ${newOrder._id}</h3>
-        <p>Aqui tus productos:</p>
+        <p>Your products:</p>
         <ul>
             ${productsLi.join(" ")}
             <br>

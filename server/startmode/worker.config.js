@@ -1,4 +1,4 @@
-// Modo fork.
+// Fork mode.
 module.exports = { 
     apps: [
         {  

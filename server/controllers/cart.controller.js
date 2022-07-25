@@ -6,6 +6,7 @@ const cartModel = ModelFactory.getModel("cart")
 const addProduct = async (req, res) => {
     const { id } = req.user
     const { prodId } = req.params
+    
     try {
         const [data, status] = await cartModel.addProduct(id, prodId)
         res.status(status).send(data)
@@ -29,7 +30,8 @@ const getCartProducts = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     const { id } = req.user
-    const { prodId } = req.params   
+    const { prodId } = req.params
+
     try {
         const [data, status] = await cartModel.deleteProduct(id, prodId)
         res.status(status).send(data)
@@ -41,6 +43,7 @@ const deleteProduct = async (req, res) => {
 
 const deleteCart = async (req, res) => {
     const { id } = req.params
+
     try {
         const [data, status] = await cartModel.deleteCart(id)
         res.status(status).send(data)

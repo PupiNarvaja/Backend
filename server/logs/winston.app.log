@@ -1,0 +1,49 @@
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: Contraseña incorrecta!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: No existe el user.
+error: There is no token!
+error: Contraseña incorrecta!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: TypeError: data.json is not a function
+error: Contraseña incorrecta!
+error: Error on mongo. routerHome is not defined
+error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "products"
+error: MongooseError: Invalid update pipeline operator: "_id"
+error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "carts"
+error: CastError: Cast to ObjectId failed for value "id_62893f3dd25fd03753cebcbf" (type string) at path "_id" for model "carts"
+error: CastError: Cast to ObjectId failed for value "ObjectId(62893f3dd25fd03753cebcbf)" (type string) at path "_id" for model "carts"
+error: CastError: Cast to ObjectId failed for value "ObjectId("62893f3dd25fd03753cebcbf")" (type string) at path "_id" for model "carts"
+error: CastError: Cast to ObjectId failed for value ""62893f3dd25fd03753cebcbf"" (type string) at path "_id" for model "carts"
+error: ReferenceError: logger is not defined
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!
+error: There is no token!

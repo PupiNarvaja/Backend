@@ -6,10 +6,10 @@ const generateTokenAndRedirect = (req, res) => {
     const token = generateToken(req.user)
 
     res.clearCookie("token")
-    res.cookie("token", token)// , { httpOnly: true }
+    res.cookie("token", token)
 
     logger.info("Redirecting...")
-    res.redirect("/") // Probar cambiar todos los fetchs por axios y ahi probar la antigua forma de interceptar el token y eso
+    res.redirect("/")
 }
 
 module.exports = {

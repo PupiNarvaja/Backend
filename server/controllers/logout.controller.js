@@ -2,8 +2,6 @@ const path = require("path")
 const logger = require('../log')
 
 const logout = (req, res, next) => {
-    //const { firstname, lastname } = req.user
-
     res.clearCookie("token")
     
     req.logOut((err) => {

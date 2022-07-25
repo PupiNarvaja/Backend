@@ -17,8 +17,7 @@ class CartModel {
     }
 
     async createCart(userId) {
-        const cart = await this.model.create({ userId: userId })
-        return cart
+        return await this.model.create({ userId: userId })
     }
 
     async addProduct(id, idProd) {

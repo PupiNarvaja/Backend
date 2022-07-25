@@ -1,5 +1,7 @@
+const path = require("path")
+
 const sendChatView = (req, res) => {
-    return res.sendFile(`${__dirname}/views/index.html`)
+    return res.sendFile(path.resolve(__dirname, "../views", "index.html"))
 }
 
 module.exports = {

@@ -11,6 +11,3 @@ class BaseModel {
 }
 
 module.exports = BaseModel
-// repostory pattern
-
-// Probar const X = await super.save() --_> Mezclar basemodel con metodos del modelo user por ej.

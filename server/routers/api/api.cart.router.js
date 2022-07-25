@@ -5,14 +5,14 @@ const isAuthenticated = require("../../middlewares/isAuthenticated")
 //  "/api/cart"
 router.use(isAuthenticated)
 
-router.get("/", cartController.getCartProducts) // Obtiene todos los productos de un cart determinado.
+router.get("/", cartController.getCartProducts) // Get all products from a specific cart.
 
-router.post("/:prodId", cartController.addProduct) // Agrega un nuevo producto a un carrito determinado.
+router.post("/:prodId", cartController.addProduct) // Add a specific product to a specific cart.
 
-router.delete("/:prodId", cartController.deleteProduct) // Elimina un producto determinado de un carrito determinado.
+router.delete("/:prodId", cartController.deleteProduct) // Delete a specific product from a specific cart.
 
-router.put("/:operation/:prodId", cartController.modifyQuantity) // Modifica la cantidad de un producto dentro del carrito.
+router.put("/:operation/:prodId", cartController.modifyQuantity) // Update the quantity of a specific product from a specific cart.
 
-router.delete("/:id", cartController.deleteCart) // Elimina un cart por completo.
+router.delete("/:id", cartController.deleteCart) // Delete a specific cart.
 
 module.exports = router

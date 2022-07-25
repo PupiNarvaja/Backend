@@ -85,7 +85,7 @@ class ProductModel {
             return [data, status]
         }
 
-        const product = await this.model.findByIdAndUpdate(id, newProd).setOptions({returnDocument: 'after'}) //Verificar el return after
+        const product = await this.model.findByIdAndUpdate(id, newProd).setOptions({returnDocument: 'after'})
 
         data = product
         status = 201

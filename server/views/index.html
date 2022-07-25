@@ -68,7 +68,6 @@
             }
         })
 
-        //Referenciar la lista para que mensajes aparezcan en el cliente.
         socket.on("chat", (msg) => {
             let item = document.createElement("li")
             item.textContent = msg

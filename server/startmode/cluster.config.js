@@ -1,4 +1,4 @@
-// Modo CLUSTER
+// CLUSTER mode
 module.exports = {
   apps: [
     {
