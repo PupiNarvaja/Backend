@@ -43,43 +43,43 @@ Cluster mode:
 
 #### Get all products
 
-```http
+```bash
   GET /api/products
 ```
 
 #### Get specific product
 
-```http
+```bash
   GET /api/products/:id
 ```
 
 #### Get a specific category of products
 
-```http
+```bash
   GET /api/products/category/:category
 ```
 
 #### Create new product
 
-```http
+```bash
   POST /api/products/:id
 ```
 
 #### Create new product
 
-```http
+```bash
   POST /api/products/:id
 ```
 
 #### Modify an existing product
 
-```http
+```bash
   PUT /api/products/:id
 ```
 
 #### Delete an existing product
 
-```http
+```bash
   DEL /api/products/:id
 ```
 
@@ -87,13 +87,13 @@ Cluster mode:
 
 #### Get a specific user's information
 
-```http
+```bash
   GET /api/users
 ```
 
 #### Get all user's information
 
-```http
+```bash
   GET /api/users/all
 ```
 
@@ -101,19 +101,19 @@ Cluster mode:
 
 #### Get all existing orders
 
-```http
+```bash
   GET /api/orders
 ```
 
 #### Generate a new order
 
-```http
+```bash
   POST /api/orders
 ```
 
 #### Send an order
 
-```http
+```bash
   POST /api/orders/:orderId
 ```
 
@@ -121,32 +121,66 @@ Cluster mode:
 
 #### Get all products saved in a specific cart
 
-```http
+```bash
   GET /api/cart
 ```
 
 #### Add a product to a specific cart
 
-```http
+```bash
   POST /api/cart/:prodId
 ```
 
 #### Delete a specific product from a specific cart
 
-```http
+```bash
   DEL /api/cart/:prodId
 ```
 
 #### Update the quantity of a requested product
 
-```http
+```bash
   DEL /api/cart/:operation/:prodId
 ```
 
 #### Delete an existing cart
 
-```http
+```bash
   DEL /api/cart/:prodId
 ```
-## 
 
+## No api routes:
+
+#### Chat
+```bash
+  /chat
+```
+
+#### User's cart
+```bash
+  /cart
+```
+
+#### User's profile
+```bash
+  /profile
+```
+
+#### Specific product
+```bash
+  /product/:id
+```
+
+#### Login
+```bash
+  /login
+```
+#### Register
+```bash
+  /register
+```
+
+#### Admin
+```bash
+  /admin
+```
