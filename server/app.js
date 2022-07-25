@@ -6,7 +6,6 @@ module.exports = (async () => {
     const session = require("express-session")
     const passport = require("passport")
     const path = require("path")
-    const cors = require("cors")
     
     const mongoose = require("mongoose")
     const mongoStore = require("connect-mongo")
@@ -19,22 +18,21 @@ module.exports = (async () => {
 
     const { Server } = require("socket.io") 
     const io = new Server(server)
-    const chat = require("./chat")
     const chatModel = require("./models/chat.model")
 
     const routerApiCart = require("./routers/api/api.cart.router")
     const routerApiUsers = require("./routers/api/api.users.router")
-    const routerApiProducts = require("./routers/api/api.products.router")
     const routerApiOrders = require("./routers/api/api.orders.router")
+    const routerApiProducts = require("./routers/api/api.products.router")
 
     const routerUniversal = require("./routers/router.index")
     const routerUniversalNoAuth = require("./routers/router.indexNoAuth")
     const router404 = require("./routers/404.router")
     const routerJwt = require("./routers/jwt.router")
+    const routerChat = require("./routers/chat.router")
     const routerLogin = require("./routers/login.router")
     const routerLogout = require("./routers/logout.router")
     const routerRegister = require("./routers/register.router")
-    const routerChat = require("./routers/chat.router")
     const routerAdmin = require("./routers/adminRoutes/admin.router")
 
     const { URI_CLOUD_CONNECTION } = require("./config")
@@ -60,8 +58,6 @@ module.exports = (async () => {
         }))
         app.use(passport.initialize())
         app.use(passport.session())
-        app.use(cors())
-
 
         app.use("/assets/", express.static(path.join(__dirname, "../client/dist/assets")))
         app.use("/static/", express.static(path.join(__dirname, "../client/dist")))
@@ -111,7 +107,7 @@ module.exports = (async () => {
 
         app.use("/admin", routerAdmin)
 
-        //app.use(router404)
+        app.use(router404)
 
     } catch (error) {
         logger.error("Error on mongo.", error)
