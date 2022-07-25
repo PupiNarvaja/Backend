@@ -1116,3 +1116,6 @@ Require stack:
 [2022-07-24T23:48:10.803Z] - error: ReferenceError: data is not defined
 [2022-07-25T01:32:20.105Z] - error: There is no token!
 [2022-07-25T01:32:22.531Z] - error: There is no token!
+[2022-07-25T02:17:08.058Z] - error: Error on mongo. The "listener" argument must be of type function. Received an instance of Promise
+[2022-07-25T02:18:05.919Z] - error: Error on mongo. The "listener" argument must be of type function. Received an instance of Promise
+[2022-07-25T02:18:10.786Z] - error: Error on mongo. The "listener" argument must be of type function. Received an instance of Promise
